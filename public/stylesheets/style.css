@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -8,16 +8,6 @@ body {
   height: 100px;
 }
 
-a {
-  font-size: larger;
-  color: #0d06ac;
-  text-decoration: none;
-}
-
-a:hover {
-  color: white;
-  background-color: #0d06ac;
-}
 
 table {
   border-collapse: collapse;
@@ -34,4 +24,11 @@ th {
   color: #fff;
   background-color: #00f;
   text-align: left;
+}
+
+.addBook {
+  background-color: #DCDCDC;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 5px 5px darkgray;
 }

@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-
 var mongoose = require('mongoose');
 var books = mongoose.model('books');
 
@@ -52,6 +51,13 @@ router.post('/add', (req, res) => {
   })
 })
 
+router.param('id', (req, res, next, id) => {
+  books.findById(id, (err, dbBooks) => {
+    err ? res.json(err) : req.booksId = dbBooks
+    next();
+  })
+})
+
 // router.param('id', (req, res, next, id) => {
 //   books.findById(id, (err, dbBooks) => {
 //     err ? res.json(err) : req.booksId = dbBooks
@@ -59,10 +65,9 @@ router.post('/add', (req, res) => {
 //   })
 // })
 
-router.param('id', (req, res, next, id) => {
-  books.findById(id, (err, dbBooks) => {
-    err ? res.json(err) : req.booksId = dbBooks
-    next();
+router.get('/:id', (req, res) => {
+  res.render('detail', {
+    bookData: req.booksId
   })
 })
 
@@ -71,12 +76,6 @@ router.param('id', (req, res, next, id) => {
 //     bookData: req.booksId
 //   })
 // })
-
-router.get('/:id', (req, res) => {
-  res.render('detail', {
-    bookDate: req.booksId
-  })
-})
 
 // router.get('/edit/:id', (req, res) => {
 //   res.render('edit', {

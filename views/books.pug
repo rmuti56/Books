@@ -17,13 +17,17 @@ extends layout
 
 
 block content
-  a(href='/books/add' style='float:right;') เพิ่มข้อมูล
+  
   h1 #{title}
-  table(border=1)
-    th รหัส
-    th ชื่อหนังสือ
-    th ราคา
-    th
+  button(class="btn btn-outline-primary my-2 float-right" id="addBook") เพิ่มข้อมูล
+  table(id="bookTable" class="display" border=1)
+    thead
+      tr
+        th รหัส
+        th ชื่อหนังสือ
+        th ราคา
+        th
+    <tbody>
     for item in data
       tr
         td #{item.isbn}
@@ -31,3 +35,4 @@ block content
         td #{item.price}
         td
           a(href='/books/'+item._id) รายละเอียด
+    </tbody>

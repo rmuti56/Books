@@ -1,8 +1,13 @@
 div#navmain
-  nav
-    a(href="/") หน้าแรก |
-    a(href="/books")  หนังสือ |
-    a(href="/users")  สมาชิก
-  form(action='/books/search',method='post')
-    input(type='text',name='q',size='80',placeholder='ค้นหาข้อมูล...')
-    input(type='submit',value='ค้นหา')
+  nav(class="navbar navbar-expand-lg navbar-dark bg-primary")
+    a.navbar-brand(href='/') BOOK
+    button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation")
+      span(class="navbar-toggler-icon")
+    div(class="collapse navbar-collapse" id="navbarText")
+      ul(class="navbar-nav mr-auto")
+        a(class="nav-link " id="menuHome" href="/") หน้าแรก |
+        a(class="nav-link" id="menuBook" href="/books")  หนังสือ |
+        a(class="nav-link" id="menuUser" href="/users")  สมาชิก
+      form(action='/books/search',method='post',class='form-inline')
+        input(class='form-control mr-sm-2',type='search',name='q',size='80',placeholder='ค้นหาข้อมูล...')
+        button(class='btn btn-outline-light my-2 my-sm-0' type='submit') ค้นหา

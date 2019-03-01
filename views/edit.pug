@@ -4,10 +4,10 @@ block content
   h1 แก้ไขข้อมูลของหนังสือ : #{bookData.title}
     form(action='/books/'+bookData._id,method='post')
       p ISBN :
-      input(type='text',name='isbn' ,value=bookData.isbn)
+      input(type='text',name='isbn' ,value=bookData.isbn required)
       p ชื่อหนังสือ :
-      input(type='text',name='title' ,value=bookData.title)
+      input(type='text',name='title' ,value=bookData.title required)
       p ราคา :
-      input(type="number",name='price', value=bookData.price)
+      input(type="number",name='price', value=bookData.price required)
       p
-      input(type='submit',value='แก้ไข')
+      button(type="submit" class="btn btn-outline-warning") แก้ไข
