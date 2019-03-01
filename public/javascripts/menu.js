@@ -9,8 +9,8 @@ $(document).ready(function () {
   $('#backBook').click(() => {
     window.location.href = "http://localhost:3000/books";
   })
-
-  $("#addBook").click(() => {
-    window.location.href = "http://localhost:3000/books/add";
-  })
 })
+
+function addData() {
+  $('#addModal').modal('show');
+}

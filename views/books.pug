@@ -1,25 +1,10 @@
-//- extends layout
-
-
-//- block content
-//-   block content
-//-     h1 #{title}
-//-     table(border=1)
-//-       th รหัส
-//-       th ชื่อหนังสือ
-//-       th ราคา
-//-       for item in data
-//-         tr
-//-           td #{item.isbn}
-//-           td #{item.title}
-//-           td #{item.price}
 extends layout
 
 
 block content
-  
+
   h1 #{title}
-  button(class="btn btn-outline-primary my-2 float-right" id="addBook") เพิ่มข้อมูล
+  button(class="btn btn-outline-primary my-2 float-right" id="addBook" onclick='addData()') เพิ่มข้อมูล
   table(id="bookTable" class="display" border=1)
     thead
       tr
@@ -36,3 +21,29 @@ block content
         td
           a(href='/books/'+item._id) รายละเอียด
     </tbody>
+    #addModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+      .modal-dialog(role='document')
+        .modal-content
+          .modal-header
+            h5#exampleModalLabel.modal-title เพิ่มข้อมูล
+            button.close(type='button' data-dismiss='modal' aria-label='Close')
+              span(aria-hidden='true') &times;
+          .modal-body
+            div(class="row justify-content-md-center formAdd")
+              div(class="text-align-center")
+                h1 #{title}
+                <form action='/books/add' method='post' >
+                  div(class="form-group")
+                    label(for='isbn') ISBN :
+                    input(class="form-control" type='text',name='isbn',size='30',placeholder='รหัส ISBN' required)
+                  div(class="form-group")
+                    label(for='title') ชื่อหนังสือ :
+                    input(class="form-control" type='text',name='title',size='50',placeholder='ชื่อหนังสือ' required)
+                  div(class="form-group") 
+                    label(for='price') ราคา :
+                    input(class="form-control" type="number",name='price',size='30',placeholder='ราคา' required)
+                  hr
+          .modal-footer
+                butoon(class='btn btn-outline-dark' id="backBook" data-dismiss='modal') ย้อนกลับ
+                button(class='btn btn-outline-success float-right' type="submit") บันทึก
+                </form>
