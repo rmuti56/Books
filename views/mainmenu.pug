@@ -1,0 +1,8 @@
+div#navmain
+  nav
+    a(href="/") หน้าแรก |
+    a(href="/books")  หนังสือ |
+    a(href="/users")  สมาชิก
+  form(action='/books/search',method='post')
+    input(type='text',name='q',size='80',placeholder='ค้นหาข้อมูล...')
+    input(type='submit',value='ค้นหา')

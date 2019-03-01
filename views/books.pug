@@ -1,0 +1,33 @@
+//- extends layout
+
+
+//- block content
+//-   block content
+//-     h1 #{title}
+//-     table(border=1)
+//-       th รหัส
+//-       th ชื่อหนังสือ
+//-       th ราคา
+//-       for item in data
+//-         tr
+//-           td #{item.isbn}
+//-           td #{item.title}
+//-           td #{item.price}
+extends layout
+
+
+block content
+  a(href='/books/add' style='float:right;') เพิ่มข้อมูล
+  h1 #{title}
+  table(border=1)
+    th รหัส
+    th ชื่อหนังสือ
+    th ราคา
+    th
+    for item in data
+      tr
+        td #{item.isbn}
+        td #{item.title}
+        td #{item.price}
+        td
+          a(href='/books/'+item._id) รายละเอียด

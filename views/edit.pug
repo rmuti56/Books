@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h1 แก้ไขข้อมูลของหนังสือ : #{bookData.title}
+    form(action='/books/'+bookData._id,method='post')
+      p ISBN :
+      input(type='text',name='isbn' ,value=bookData.isbn)
+      p ชื่อหนังสือ :
+      input(type='text',name='title' ,value=bookData.title)
+      p ราคา :
+      input(type="number",name='price', value=bookData.price)
+      p
+      input(type='submit',value='แก้ไข')

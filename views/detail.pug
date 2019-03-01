@@ -1,0 +1,17 @@
+extends layout
+
+
+
+block content
+  h1 #{bookData.title}
+    ul
+      li รหัส ISBN : #{bookData.isbn}
+      li ชื่อหนังสือ : #{bookData.title}
+      li ราคา : #{bookData.price}
+
+    ul 
+      li
+        a(href='/books/edit/'+bookData._id) แก้ไข
+      li
+        form(action='/books/deletebook/'+bookData._id,method='post')
+          button(type='submit') ลบข้อมูล
