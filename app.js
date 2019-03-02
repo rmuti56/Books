@@ -3,14 +3,19 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-
 var mongoose = require('mongoose');
+var fileUpload = require('express-fileupload')
 var Schema = mongoose.Schema;
 
 var BooksSchema = new Schema({
   isbn: String,
   title: String,
-  price: Number
+  price: Number,
+  description: String,
+  path: String,
+  name: String
+}, {
+  versionKey: false
 })
 
 mongoose.model('books', BooksSchema);
@@ -25,6 +30,8 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+app.use(fileUpload());
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -53,5 +60,6 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
 
 module.exports = app;

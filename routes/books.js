@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
   })
 })
 
+
 router.post('/search', (req, res) => {
   books.find({
     title: {
@@ -31,24 +32,27 @@ router.get('/add', (req, res) => {
   })
 })
 
-// router.post('/add', (req, res) => {
-//   new books({
-//     isbn: req.body.isbn,
-//     title: req.body.title,
-//     price: req.body.price
-//   }).save((err) => {
-//     err ? res.json(err) : res.redirect('/books');
-//   })
-// })
-
 router.post('/add', (req, res) => {
-  new books({
-    isbn: req.body.isbn,
-    title: req.body.title,
-    price: req.body.price
-  }).save((err) => {
-    err ? res.json(err) : res.redirect('/books');
+
+  let fileUpload = req.files.photo;
+  let fileName = `${Date.now()}.jpg`
+  let path = 'public/images/upload' + fileName;
+  fileUpload.mv(path, (err) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    new books({
+      isbn: req.body.isbn,
+      title: req.body.title,
+      price: req.body.price,
+      description: req.body.description,
+      path: path,
+      name: fileName
+    }).save((err) => {
+      err ? res.json(err) : res.redirect('/books');
+    })
   })
+
 })
 
 router.param('id', (req, res, next, id) => {
@@ -58,73 +62,42 @@ router.param('id', (req, res, next, id) => {
   })
 })
 
-// router.param('id', (req, res, next, id) => {
-//   books.findById(id, (err, dbBooks) => {
-//     err ? res.json(err) : req.booksId = dbBooks
-//     next();
-//   })
-// })
 
 router.get('/:id', (req, res) => {
-  res.render('detail', {
-    bookData: req.booksId
+
+  books.find((err, dbBooks) => {
+    res.render('books', {
+      title: 'รายการหนังสือ',
+      data: dbBooks,
+      bookData: req.booksId
+    })
   })
 })
 
-// router.get('/:id', (req, res) => {
-//   res.render('detail', {
-//     bookData: req.booksId
-//   })
-// })
-
-// router.get('/edit/:id', (req, res) => {
-//   res.render('edit', {
-//     bookData: req.booksId
-//   })
-// })
 router.get('/edit/:id', (req, res) => {
   res.render('edit', {
     bookData: req.booksId
   })
 })
 
-// router.post('/:id', (req, res) => {
-//   books.findByIdAndUpdate({
-//     _id: req.params.id
-//   }, {
-//     isbn: req.body.isbn,
-//     title: req.body.title,
-//     price: req.body.price
-//   }, {
-//     new: true
-//   }, (err, dbBooks) => {
-//     err ? console.log(err) : res.redirect('/books');
-//   })
-// })
 
-router.post('/:id', (req, res) => {
+router.post('/update/:id', (req, res) => {
   books.findByIdAndUpdate({
     _id: req.params.id
   }, {
     isbn: req.body.isbn,
     title: req.body.title,
-    price: req.body.price
+    price: req.body.price,
+    description: req.body.description
   }, {
     new: true
   }, (err, dbBooks) => {
     err ? res.json(err) : res.redirect('/books')
   })
 })
-// router.post('/deletebook/:id', (req, res) => {
-//   books.findByIdAndRemove({
-//     _id: req.params.id
-//   }, (err, dbBooks) => {
-//     err ? res.json(err) : res.redirect('/books');
-//   })
-// })
 
 
-router.post('/deletebook/:id', (req, res) => {
+router.post('/delete/:id', (req, res) => {
   books.findByIdAndDelete({
     _id: req.params.id
   }, (err, dbBooks) => {

@@ -7,7 +7,7 @@ block content
   div(class="row justify-content-center")
     div(class="card col-md-auto" style="width: 30rem;")
       img(class="card-img-top" src="/images/logo.jpg" alt="หนังสือ")
-      h1() #{bookData.title}
+      h1() #{||.title}
       ul(class="list-group list-group-flush")
         li(class="list-group-item") รหัส ISBN : #{bookData.isbn}
         li(class="list-group-item") ชื่อหนังสือ : #{bookData.title}

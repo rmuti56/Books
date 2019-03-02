@@ -8,21 +8,15 @@ body {
   height: 100px;
 }
 
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
 table,
 th,
 td {
-  border: 1px solid #00f;
+  border: 1px solid #1E90FF;
 }
 
 th {
   color: #fff;
-  background-color: #00f;
+  background-color: #1E90FF;
   text-align: left;
 }
 
@@ -31,4 +25,8 @@ th {
   padding: 30px;
   border-radius: 20px;
   box-shadow: 5px 5px darkgray;
+}
+
+i {
+  padding-right: 10px
 }
