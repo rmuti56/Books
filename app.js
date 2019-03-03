@@ -5,20 +5,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var fileUpload = require('express-fileupload')
-var Schema = mongoose.Schema;
 
-var BooksSchema = new Schema({
-  isbn: String,
-  title: String,
-  price: Number,
-  description: String,
-  path: String,
-  name: String
-}, {
-  versionKey: false
-})
-
-mongoose.model('books', BooksSchema);
+var BooksSchema = require('./validation/booksModel')
+var usersSchema = require('./validation/registerModel')
 mongoose.connect('mongodb+srv://admin:admin@mongodb-sw7se.mongodb.net/myshops?retryWrites=true')
 
 var indexRouter = require('./routes/index');

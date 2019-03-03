@@ -19,6 +19,62 @@ $(document).ready(function () {
   if (url) {
     $('#detailModal').modal('show');
   }
+  //end book
+  //register
+  $('#login').click(() => {
+    $('#loginModal').modal('show');
+  })
+  $('#registerLabel').click(() => {
+    $('#loginModal').modal('hide');
+    $('#registerModal').modal('show');
+  })
+  $('#loginLabel').click(() => {
+    $('#registerModal').modal('hide');
+    $('#loginModal').modal('show');
+  })
+  $('#passwordR').blur((event) => {
+    let password = $('#passwordR').val().length
+    if (String(password) < 6) {
+      $('#checkPassword').css('display', 'block')
+      $('#passwordR').css('border-color', 'red')
+
+    } else {
+      $('#checkPassword').css('display', 'none');
+      $('#passwordR').css('border-color', '#ced4da')
+    }
+  })
+  $('#passwordR').keyup(() => {
+    let Cpassword = $('#confirmPasswordR').val().length
+    if (Cpassword != 0) {
+      let password = $('#passwordR').val()
+      let Cpassword = $('#confirmPasswordR').val()
+      if (password != Cpassword) {
+        $('#checkMatch').css('display', "block");
+        $('#passwordR').css('border-color', 'red');
+        $('#confirmPasswordR').css('border-color', 'red')
+      } else {
+        $('#checkMatch').css('display', "none");
+        $('#passwordR').css('border-color', '#ced4da');
+        $('#confirmPasswordR').css('border-color', '#ced4da')
+      }
+    }
+  })
+  $('#confirmPasswordR').keyup(() => {
+    let password = $('#passwordR').val()
+    let Cpassword = $('#confirmPasswordR').val()
+    if (password != Cpassword) {
+      $('#checkMatch').css('display', "block");
+      $('#passwordR').css('border-color', 'red');
+      $('#confirmPasswordR').css('border-color', 'red')
+    } else {
+      $('#checkMatch').css('display', "none");
+      $('#passwordR').css('border-color', '#ced4da');
+      $('#confirmPasswordR').css('border-color', '#ced4da')
+    }
+  })
+  //end register
+  //login
+
 })
 
 function post(path) {
@@ -64,7 +120,55 @@ function post(path) {
     document.body.appendChild(form);
     form.submit();
   }
+}
 
+function register() {
+  let passwordLength = $('#passwordR').val().length
+  let password = $('#passwordR').val()
+  let Cpassword = $('#confirmPasswordR').val()
+  if (String(passwordLength) < 6) {
+    $('#checkPassword').css('display', 'block')
+    $('#passwordR').css('border-color', 'red')
+
+  } else if (password != Cpassword) {
+    $('#checkMatch').css('display', "block");
+    $('#passwordR').css('border-color', 'red');
+    $('#confirmPasswordR').css('border-color', 'red')
+  } else {
+    $('#checkMatch').css('display', "none");
+    $('#checkMatch').css('display', "none");
+    $('#passwordR').css('border-color', '#ced4da');
+    $('#confirmPasswordR').css('border-color', '#ced4da')
+    method = 'post';
+    var name = $('#nameR').val();
+    var lastName = $('#lastNameR').val();
+    var email = $('#emailR').val();
+    var form = document.createElement('form');
+    form.setAttribute('method', method);
+    form.setAttribute('action', '/users/register');
+    var hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", 'name');
+    hiddenField.setAttribute("value", name);
+    form.appendChild(hiddenField);
+    var hiddenField = document.createElement('input');
+    hiddenField.setAttribute('type', 'hidden');
+    hiddenField.setAttribute('name', 'lastName');
+    hiddenField.setAttribute('value', lastName);
+    form.appendChild(hiddenField);
+    var hiddenField = document.createElement('input');
+    hiddenField.setAttribute('type', 'hidden');
+    hiddenField.setAttribute('name', 'email');
+    hiddenField.setAttribute('value', email);
+    form.appendChild(hiddenField);
+    var hiddenField = document.createElement('input');
+    hiddenField.setAttribute('type', 'hidden');
+    hiddenField.setAttribute('name', 'password');
+    hiddenField.setAttribute('value', password);
+    form.appendChild(hiddenField);
+    document.body.appendChild(form);
+    form.submit();
+  }
 }
 
 function readURL(input) {

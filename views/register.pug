@@ -1,0 +1,31 @@
+extends layout
+
+
+block content
+           
+            div(class="row justify-content-md-center formAdd" style="padding-top:20px")
+              div(class="col-md-6 text-align-center login")
+                form(method='post' action='javascript:void(0)' style="padding:20px;")
+                  h5(class="text-center") <i class="fa fa-user-plus"></i> ลงทะเบียน
+                  div(class="form-group")
+                    label(for="name") ชื่อ :
+                    input(class="form-control" type="text" id="nameR" name="name" placeholder="ป้อนชื่อ" size="50" required)
+                  div(class="form-group")
+                    label(for="lastName") นามสกุล :
+                    input( class="form-control" type="text" id="lastNameR" name="lastName" placeholder="ป้อนนามสกุล" size='50' required)
+                  div(class="form-group")
+                    label(for='username') อีเมลล์ :
+                    input(class="form-control" type='email',name='email' id='emailR' size='50',placeholder='ป้อนอีเมลล์' required)
+                  div(class="form-group")
+                    label(for='password') รหัสผ่าน :
+                    input(class="form-control" type='password',name='password' id="passwordR" size='50',placeholder='ป้อนรหัสผ่าน' required)
+                    span(id="checkPassword" style="color:red; display:none") รหัสผ่านต้องอย่างน้อย 6 ตัว
+                  div(class="form-group")
+                    label(for='confirmPassword') ยืนยันรหัสผ่าน :
+                    input(class="form-control" type='password',name='confirmPassword' id="confirmPasswordR",size='50',placeholder='ป้อนรหัสผ่านอีกครั้ง' required)
+                    sapn(id="checkMatch" style="color:red; display:none") รหัสผ่านไม่ตรงกัน
+                  div(class="form-group ")
+                    button(class='btn btn-outline-primary float-right btn-block' onclick='register()') <i class="fa fa-sign-in"></i>ลงทะเบียน 
+                  div(class="form-group text-center" style="padding-top:40px")
+                    a(href="/users/login")
+                      label(for='' id="loginLabel" class="labelLogin" style="padding-top:20px") เข้าสู่ระบบ

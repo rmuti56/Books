@@ -1,0 +1,56 @@
+extends layout
+
+block content       
+  if title
+    div(class="row justify-content-md-center formAdd" style="padding-top:20px")
+      div(class="col-md-6 text-align-center login")
+        form(action='/users/login' method='post' id="formLogin" style="padding:20px;")
+          h5(class="text-center") <i class="fa fa-user"></i> ลงชื่อเข้าใช้
+          div(class="form-group")
+            label(for='username') อีเมลล์ :
+            input(class="form-control" type='email',name='loginEmail' id='loginEmail' size='30',placeholder='ป้อนอีเมลล์' required style="border-color:red")
+            span(style="color:red") ไม่มีผู้ใช้งานนี้ในระบบ
+          div(class="form-group")
+            label(for='password') รหัสผ่าน :
+            input(class="form-control" type='password',name='loginPassword' id='loginPassword' size='50',placeholder='ป้อนรหัสผ่าน' required)
+          div(class="form-group text-center")
+            label(for='' id="forgot" class="labelLogin") ลืมรหัสผ่าน? 
+            button(class='btn btn-outline-primary float-right btn-block' type="submit") <i class="fa fa-sign-in"></i>เข้าสู่ระบบ 
+          div(class="form-group text-center" style="padding-top:40px")
+            a(href="/users/register")
+              label(for='' id="registerLabel" class="labelLogin") ลงทะเบียน
+  else if email
+    div(class="row justify-content-md-center formAdd" style="padding-top:20px")
+      div(class="col-md-6 text-align-center login")
+        form(action='/users/login' method='post' id="formLogin" style="padding:20px;")
+          h5(class="text-center") <i class="fa fa-user"></i> ลงชื่อเข้าใช้
+          div(class="form-group")
+            label(for='username') อีเมลล์ :
+            input(class="form-control" type='email',name='loginEmail' id='loginEmail' size='30',placeholder='ป้อนอีเมลล์' required value=""+email)
+          div(class="form-group")
+            label(for='password') รหัสผ่าน :
+            input(class="form-control" type='password',name='loginPassword' id='loginPassword' size='50',placeholder='ป้อนรหัสผ่าน' required style="border-color:red")
+            span(style="color:red") รหัสผ่านไม่ถูกต้อง
+          div(class="form-group text-center")
+            label(for='' id="forgot" class="labelLogin") ลืมรหัสผ่าน? 
+            button(class='btn btn-outline-primary float-right btn-block' type="submit") <i class="fa fa-sign-in"></i>เข้าสู่ระบบ 
+          div(class="form-group text-center" style="padding-top:40px")
+            a(href="/users/register")
+              label(for='' id="registerLabel" class="labelLogin") ลงทะเบียน
+  else
+    div(class="row justify-content-md-center formAdd" style="padding-top:20px")
+      div(class="col-md-6 text-align-center login")
+        form(action='/users/login' method='post' id="formLogin" style="padding:20px;")
+          h5(class="text-center") <i class="fa fa-user"></i> ลงชื่อเข้าใช้
+          div(class="form-group")
+            label(for='username') อีเมลล์ :
+            input(class="form-control" type='email',name='loginEmail' id='loginEmail' size='30',placeholder='ป้อนอีเมลล์' required )
+          div(class="form-group")
+            label(for='password') รหัสผ่าน :
+            input(class="form-control" type='password',name='loginPassword' id='loginPassword' size='50',placeholder='ป้อนรหัสผ่าน' required)
+          div(class="form-group text-center")
+            label(for='' id="forgot" class="labelLogin") ลืมรหัสผ่าน? 
+            button(class='btn btn-outline-primary float-right btn-block' type="submit") <i class="fa fa-sign-in"></i>เข้าสู่ระบบ 
+          div(class="form-group text-center" style="padding-top:40px")
+            a(href="/users/register")
+              label(for='' id="registerLabel" class="labelLogin") ลงทะเบียน

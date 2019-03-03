@@ -30,3 +30,19 @@ th {
 i {
   padding-right: 10px
 }
+
+.labelLogin {
+  color: #007bff;
+  cursor: pointer;
+}
+
+.labelLogin:hover {
+  text-decoration: underline;
+}
+
+.login {
+  background-color: aliceblue;
+  border-radius: 20px;
+  border-color: #007bff;
+  border-style: double;
+}
