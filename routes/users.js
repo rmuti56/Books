@@ -3,6 +3,9 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var users = mongoose.model('users');
 var passwordHash = require('password-hash');
+var jwt = require('jsonwebtoken');
+
+var app = express();
 
 router.get('/', (req, res) => {
   res.render('index', {
@@ -36,7 +39,8 @@ router.post('/register', (req, res) => { //ลงทะเบียน
   })
 })
 
-router.post('/login', async (req, res) => { //
+router.post('/login', async (req, res) => {
+
   var member = await users.findOne({
     email: req.body.loginEmail
   })
@@ -50,10 +54,18 @@ router.post('/login', async (req, res) => { //
     })
 
   } else {
-    res.redirect('/users/success')
+    let payload = {
+      email: member.email,
+      status: member.status
+    }
+    jwt.sign(payload, 'books', { //สร้าง token
+      expiresIn: 600
+    }, (err, token) => {
+      res.render('success', {
+        token: token,
+        title: 'ลงชื่อเข้าใช้สำเร็จ'
+      })
+    })
   }
-
-
 })
-
 module.exports = router;

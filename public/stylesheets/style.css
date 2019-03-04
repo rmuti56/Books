@@ -46,3 +46,7 @@ i {
   border-color: #007bff;
   border-style: double;
 }
+
+.status {
+  display: none;
+}

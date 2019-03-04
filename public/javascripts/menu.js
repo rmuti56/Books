@@ -21,28 +21,7 @@ $(document).ready(function () {
   }
   //end book
   //register
-  $('#login').click(() => {
-    $('#loginModal').modal('show');
-  })
-  $('#registerLabel').click(() => {
-    $('#loginModal').modal('hide');
-    $('#registerModal').modal('show');
-  })
-  $('#loginLabel').click(() => {
-    $('#registerModal').modal('hide');
-    $('#loginModal').modal('show');
-  })
-  $('#passwordR').blur((event) => {
-    let password = $('#passwordR').val().length
-    if (String(password) < 6) {
-      $('#checkPassword').css('display', 'block')
-      $('#passwordR').css('border-color', 'red')
 
-    } else {
-      $('#checkPassword').css('display', 'none');
-      $('#passwordR').css('border-color', '#ced4da')
-    }
-  })
   $('#passwordR').keyup(() => {
     let Cpassword = $('#confirmPasswordR').val().length
     if (Cpassword != 0) {
@@ -72,9 +51,83 @@ $(document).ready(function () {
       $('#confirmPasswordR').css('border-color', '#ced4da')
     }
   })
-  //end register
-  //login
 
+  //end register
+  //login 
+  $('#login').click(() => {
+    $('#loginModal').modal('show');
+  })
+  $('#registerLabel').click(() => {
+    $('#loginModal').modal('hide');
+    $('#registerModal').modal('show');
+  })
+  $('#loginLabel').click(() => {
+    $('#registerModal').modal('hide');
+    $('#loginModal').modal('show');
+  })
+  $('#passwordR').blur((event) => {
+    let password = $('#passwordR').val().length
+    if (String(password) < 6) {
+      $('#checkPassword').css('display', 'block')
+      $('#passwordR').css('border-color', 'red')
+
+    } else {
+      $('#checkPassword').css('display', 'none');
+      $('#passwordR').css('border-color', '#ced4da')
+    }
+  })
+
+  var token = $('#token').text();
+  if (token.length > 1) {
+    localStorage.setItem('token', JSON.stringify(token));
+  }
+
+  var getToken = JSON.parse(localStorage.getItem("token"));
+  console.log(getToken)
+  if (getToken) {
+    axios({
+      method: "get",
+      url: 'https://us-central1-books-58c22.cloudfunctions.net/jwt/check',
+      headers: {
+        token: getToken
+      }
+    }).then(result => {
+      if (result.data.message === 'Failed to authenticate token') {
+        console.log(result.data.message)
+        var url = window.location.pathname;
+        if (url == '/users') {
+          if (url !== '/users/login') {
+            window.location.href = '/users/login';
+          }
+        }
+      } else {
+        var status = result.data.decode.status;
+        console.log(status)
+        if (status == 'admin') {
+          console.log(status)
+          $('#addBook').css('display', 'block')
+          $('#edit').css('display', 'block')
+          $('#delete').css('display', 'block')
+        }
+        $('#login').text('ออกจากระบบ')
+        $('#login').click(() => {
+          localStorage.removeItem('token');
+          window.location.href = '/';
+        })
+
+      }
+    }).catch(e => {
+      console.log(e);
+    })
+  } else {
+    console.log('นี้แหละ')
+    var url = window.location.pathname;
+    if (url !== '/users') {
+      if (url !== '/users/login') {
+        window.location.href = '/users/login';
+      }
+    }
+  }
 })
 
 function post(path) {
@@ -84,7 +137,7 @@ function post(path) {
   var title = $('#titleDetail').val();
   var price = $('#priceDetail').val();
   var description = $('#description').val();
-  var id = $(path).attr('id');
+  var id = $(path).attr('id1');
   if ($(path).attr('data') == 'delete') {
     url = 'delete'
     var form = document.createElement("form");

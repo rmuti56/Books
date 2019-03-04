@@ -5,7 +5,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 var fileUpload = require('express-fileupload')
-
 var BooksSchema = require('./validation/booksModel')
 var usersSchema = require('./validation/registerModel')
 mongoose.connect('mongodb+srv://admin:admin@mongodb-sw7se.mongodb.net/myshops?retryWrites=true')
@@ -21,7 +20,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(fileUpload());
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
