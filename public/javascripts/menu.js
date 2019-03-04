@@ -122,7 +122,7 @@ $(document).ready(function () {
   } else {
     console.log('นี้แหละ')
     var url = window.location.pathname;
-    if (url !== '/users') {
+    if (url == '/users') {
       if (url !== '/users/login') {
         window.location.href = '/users/login';
       }
