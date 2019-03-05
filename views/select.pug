@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  div(class="row justify-content-md-center")
+    div(class="col-md-auto")
+      div(class="card text-center")
+        div(class="card-header") 
+          h5  <i class="fa fa-cart-arrow-down" style="font-size:25px"></i>สินค้าในตะกร้า
+        div(class="card-body")
+          
+            table(id="showCart" align='center' )
+              thead
+                tr
+                  th รหัสสินค้า
+                  th ชื่อสินค้า
+                  th ราคา
+                  th จำนวน 
+                  th รวมเป็นเงิน
+              tbody
+                tr
+                  td(id="titleConcart") 1
+                  td หนังสือขายดีราคาถูกๆๆๆ
+                  td 234
+                  td 2
+                  td 468
+                tr
+                  td(colspan="4") รวมเป็นเงินทั้งสิน
+                  td 468 บาท
+            button(class="btn btn-outline-success btn-block") ยืนยันการซื้อสินค้า     
+        

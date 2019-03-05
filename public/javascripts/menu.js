@@ -4,7 +4,6 @@ $(document).ready(function () {
   });
   var test = $('#test').val();
   $(".navbar  .nav-link").on("click", function () {
-    console.log("click")
     $(".navbar ").find(".active").removeClass("active");
     $(this).addClass("active");
   });
@@ -83,7 +82,6 @@ $(document).ready(function () {
   }
 
   var getToken = JSON.parse(localStorage.getItem("token"));
-  console.log(getToken)
   if (getToken) {
     axios({
       method: "get",
@@ -93,7 +91,8 @@ $(document).ready(function () {
       }
     }).then(result => {
       if (result.data.message === 'Failed to authenticate token') {
-        console.log(result.data.message)
+        localStorage.removeItem('token')
+        localStorage.removeItem('book')
         var url = window.location.pathname;
         if (url == '/users') {
           if (url !== '/users/login') {
@@ -102,16 +101,16 @@ $(document).ready(function () {
         }
       } else {
         var status = result.data.decode.status;
-        console.log(status)
         if (status == 'admin') {
-          console.log(status)
+          $(':input').removeAttr('disabled')
           $('#addBook').css('display', 'block')
           $('#edit').css('display', 'block')
           $('#delete').css('display', 'block')
         }
         $('#login').text('ออกจากระบบ')
         $('#login').click(() => {
-          localStorage.removeItem('token');
+          localStorage.removeItem('token')
+          localStorage.removeItem('book')
           window.location.href = '/';
         })
 
@@ -120,23 +119,27 @@ $(document).ready(function () {
       console.log(e);
     })
   } else {
-    console.log('นี้แหละ')
     var url = window.location.pathname;
-    if (url == '/users') {
+    if (url == '/users' || url == '/books/select') {
       if (url !== '/users/login') {
         window.location.href = '/users/login';
       }
     }
   }
+
+  //select book
+
+
 })
 
-function post(path) {
+function post(path) { // update and delete method post
   method = "post";
   var url;
   var isbn = $('#isbnDetail').val();
   var title = $('#titleDetail').val();
   var price = $('#priceDetail').val();
-  var description = $('#description').val();
+  var description = $('#descriptionDetail').val();
+  var amount = $('#amountDetail').val();
   var id = $(path).attr('id1');
   if ($(path).attr('data') == 'delete') {
     url = 'delete'
@@ -169,6 +172,11 @@ function post(path) {
     hiddenField.setAttribute("type", "hidden");
     hiddenField.setAttribute("name", 'description');
     hiddenField.setAttribute("value", description);
+    form.appendChild(hiddenField);
+    var hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", 'amount');
+    hiddenField.setAttribute("value", amount);
     form.appendChild(hiddenField);
     document.body.appendChild(form);
     form.submit();
@@ -235,5 +243,67 @@ function readURL(input) {
 
     reader.readAsDataURL(input.files[0]);
     $('#blah').css('display', "block")
+  }
+}
+
+
+var getLocalCart = JSON.parse(localStorage.getItem('book')) || [];
+var showAmount = 0;
+getLocalCart.forEach(item => {
+  showAmount += item.amount
+  $('#amountCart').text(showAmount)
+  var amountDetail = Number($('#amountDetail' + item.bookId).attr('max'))
+  var newAmountDetail = amountDetail - item.amount;
+  var newItemAmount;
+  newItemAmount += item.amount;
+  console(newItemAmount);
+
+  $('#amountDetail' + item.bookId).attr('max', newAmountDetail)
+  $('#count' + item.bookId).text(newAmountDetail);
+  if (newAmountDetail <= 0) {
+    $('#amountDetail' + item.bookId).attr('disabled', 'disabled')
+    $('#btnSelect' + item.bookId).attr('disabled', 'desabled')
+    $('#sorry' + item.bookId).css('display', 'block')
+    $('#countBook' + item.bookId).css('display', 'none')
+  }
+})
+
+function select(idBook) {
+  var getToken = JSON.parse(localStorage.getItem("token"));
+  if (getToken) {
+    var id = $(idBook).attr('id1');
+    var isbn = $('#isbnDetail').val();
+    var title = $('#titleDetail').val();
+    var description = $('#descriptionDetail').val();
+    var amount = $('#amountDetail' + id).val();
+    var max = $('#amountDetail' + id).attr('max');
+    if (amount < 0) {
+      return;
+    }
+    if (amount > max) {
+      amount = max;
+    }
+    var newMax = max - amount;
+    if (newMax <= 0) {
+      $('#amountDetail' + id).attr('disabled', 'disabled')
+      $('#btnSelect' + id).attr('disabled', 'desabled')
+      $('#sorry' + id).css('display', 'block')
+      $('#countBook' + id).css('display', 'none')
+    }
+    $('#amountDetail' + id).attr('max', newMax)
+    $('#count' + id).text(newMax);
+    var book = {
+      bookId: id,
+      isbn: isbn,
+      title: title,
+      description: description,
+      amount: Number(amount)
+    }
+    getLocalCart.push(book)
+    localStorage.setItem('book', JSON.stringify(getLocalCart));
+    $('#detailModal').modal('hide')
+    window.location.href = ('/books')
+  } else {
+    window.location.href = '/users/login'
   }
 }

@@ -12,6 +12,11 @@ router.get('/', (req, res) => {
   })
 })
 
+router.get('/select', (req, res) => {
+  res.render('select', {
+    title: 'หนังสือที่เลือก'
+  })
+})
 
 router.post('/search', (req, res) => {
   books.find({
@@ -33,7 +38,6 @@ router.get('/add', (req, res) => {
 })
 
 router.post('/add', (req, res) => {
-
   let fileUpload = req.files.photo;
   let fileName = `${Date.now()}.jpg`
   let path = 'public/images/upload' + fileName;
@@ -47,7 +51,8 @@ router.post('/add', (req, res) => {
       price: req.body.price,
       description: req.body.description,
       path: path,
-      name: fileName
+      name: fileName,
+      amount: req.body.amount
     }).save((err) => {
       err ? res.json(err) : res.redirect('/books');
     })
@@ -104,4 +109,6 @@ router.post('/delete/:id', (req, res) => {
     err ? res.json(err) : res.redirect('/books');
   })
 })
+
+
 module.exports = router;
