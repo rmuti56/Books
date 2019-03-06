@@ -14,6 +14,10 @@ td {
   border: 1px solid #1E90FF;
 }
 
+table {
+  width: 100%;
+}
+
 th {
   color: #fff;
   background-color: #1E90FF;

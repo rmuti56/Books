@@ -2,12 +2,13 @@ extends layout
 
 block content
   div(class="row justify-content-md-center")
-    div(class="col-md-auto")
-      div(class="card text-center")
-        div(class="card-header") 
-          h5  <i class="fa fa-cart-arrow-down" style="font-size:25px"></i>สินค้าในตะกร้า
+    div(class="col-md-8")
+      div(class="card text-center" style="border-color:green;")
+        div(class="card-header" style="border-color:green;") 
+          h5(class='text-success')  <i class="fa fa-cart-arrow-down" style="font-size:25px"></i>สินค้าในตะกร้า
         div(class="card-body")
-          
+          form(action='/books/select',method='post')
+            input(type="hidden" id="tokenEmail" name="tokenEmail" value="5")
             table(id="showCart" align='center' )
               thead
                 tr
@@ -16,15 +17,23 @@ block content
                   th ราคา
                   th จำนวน 
                   th รวมเป็นเงิน
-              tbody
-                tr
-                  td(id="titleConcart") 1
-                  td หนังสือขายดีราคาถูกๆๆๆ
-                  td 234
-                  td 2
-                  td 468
-                tr
-                  td(colspan="4") รวมเป็นเงินทั้งสิน
-                  td 468 บาท
-            button(class="btn btn-outline-success btn-block") ยืนยันการซื้อสินค้า     
-        
+              <tbody>
+              for item in data
+                tr(id='selectId'+item._id style="display:none")
+                  td(id="selectIsbn"+item._id ) #{item.isbn}
+                  td(id="selectTitle"+item._id ) #{item.title}
+                  td(id="selectPrice"+item._id ) #{item.price}
+                  td(id="selectAmount"+item._id ) 0
+                  input(type="hidden" id="hideSelectAmount"+item._id name="selectAmount"+item._id )
+                  td(class="price" id="selectSum"+item._id ) 0
+                  input(type="hidden" id="hideSelectSum"+item._id name="selectSum"+item._id )
+              tr(id="rowTotal")
+                td(colspan="4") รวมเป็นเงินทั้งสิน
+                td(id="total") บาท
+              tr(id="rowText")
+                td(colspan="5") ยังไม่ได้เลือกสินค้า 
+              </tbody>
+            button(class="btn btn-outline-success btn-block" id="selectBooks") 
+              i(class="fa fa-money") 
+              span ยืนยันการเลือกสินค้า     
+              

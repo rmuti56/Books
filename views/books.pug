@@ -33,7 +33,7 @@ block content
                           input(class="form-control" type="number",name='price' id="priceDetail" size='30',placeholder='ราคา' required value=""+bookData.price disabled)
                         div(class="col-md")
                           label(for="amount") จำนวน :
-                          input(class="form-control" type="number" name="amount" id="amountDetail"+bookData._id size="30" placeholder="จำนวน" min="0" step="1" value="1" max=""+bookData.amount amount=""+bookData.amount)
+                          input(class="form-control" type="number" name="amount" class="amount" id="amountDetail"+bookData._id size="30" placeholder="จำนวน" min="0" step="1" value="1" max=""+bookData.amount amount=""+bookData.amount)
                     div(class="form-group")
                       p(id="hideShow") รายละเอียดหนังสือ...
                       textarea(name="description", cols="30", rows="5" class='form-control'  id="descriptionDetail" style="display:none" disabled) #{bookData.description}

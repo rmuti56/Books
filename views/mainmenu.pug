@@ -1,13 +1,13 @@
 div#navmain
-  nav(class="navbar navbar-expand-lg navbar-dark bg-primary")
+  nav(class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top")
     a.navbar-brand(href='/') BOOK
     button(class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation")
       span(class="navbar-toggler-icon")
     div(class="collapse navbar-collapse" id="navbarText")
       ul(class="navbar-nav mr-auto")
         a(class="nav-link " id="menuHome" href="/") หน้าแรก |
-        a(class="nav-link" id="menuBook" href="/books")  หนังสือ |
         a(class="nav-link" id="menuUser" href="/users")  สมาชิก |
+        a(class="nav-link" id="menuBook" href="/books")  หนังสือ |
         a(class="nav-link" id="menuSelect" href="/books/select") <i class="fa fa-cart-arrow-down" style="font-size:25px"></i>สินค้าในตะกร้า
           span() 
             span(id="amountCart")  0

@@ -100,8 +100,14 @@ $(document).ready(function () {
           }
         }
       } else {
+        // var user = result.data.decode.email;
+        // console.log(user)
+        var tokenEmail = result.data.decode.email;
+        $('#tokenEmail').val(tokenEmail);
         var status = result.data.decode.status;
+        console.log(status)
         if (status == 'admin') {
+          $('.amount').removeAttr('max')
           $(':input').removeAttr('disabled')
           $('#addBook').css('display', 'block')
           $('#edit').css('display', 'block')
@@ -128,9 +134,12 @@ $(document).ready(function () {
   }
 
   //select book
+  $('#selectBooks').click(() => {
+    localStorage.removeItem('book')
+  })
 
 
-})
+});
 
 function post(path) { // update and delete method post
   method = "post";
@@ -139,7 +148,7 @@ function post(path) { // update and delete method post
   var title = $('#titleDetail').val();
   var price = $('#priceDetail').val();
   var description = $('#descriptionDetail').val();
-  var amount = $('#amountDetail').val();
+  var amount = $('.amount').val();
   var id = $(path).attr('id1');
   if ($(path).attr('data') == 'delete') {
     url = 'delete'
@@ -247,19 +256,32 @@ function readURL(input) {
 }
 
 
+// select book
 var getLocalCart = JSON.parse(localStorage.getItem('book')) || [];
 var showAmount = 0;
+//$('#showCart tr td:nth-last-child(-n+1)').css('background', '#CCC');
+
+
+
 getLocalCart.forEach(item => {
-  showAmount += item.amount
+  var getToken = JSON.parse(localStorage.getItem("token"));
+
+  showAmount += item.amount;
   $('#amountCart').text(showAmount)
   var amountDetail = Number($('#amountDetail' + item.bookId).attr('max'))
+  var selectAmount = Number($('#selectAmount' + item.bookId).text());
+  var price = Number($('#selectPrice' + item.bookId).text());
+  var selectAmountSum = selectAmount + item.amount;
+  var selectSum = (selectAmountSum * price);
   var newAmountDetail = amountDetail - item.amount;
-  var newItemAmount;
-  newItemAmount += item.amount;
-  console(newItemAmount);
-
   $('#amountDetail' + item.bookId).attr('max', newAmountDetail)
   $('#count' + item.bookId).text(newAmountDetail);
+  $('#selectAmount' + item.bookId).text(selectAmountSum);
+  $('#hideSelectAmount' + item.bookId).val(selectAmountSum);
+  $('#selectSum' + item.bookId).text(selectSum);
+  $('#selectSum' + item.bookId).val(selectSum);
+  $('#hideSelectSum' + item.bookId).val(selectSum);
+  $('#selectId' + item.bookId).css('display', '')
   if (newAmountDetail <= 0) {
     $('#amountDetail' + item.bookId).attr('disabled', 'disabled')
     $('#btnSelect' + item.bookId).attr('disabled', 'desabled')
@@ -267,6 +289,30 @@ getLocalCart.forEach(item => {
     $('#countBook' + item.bookId).css('display', 'none')
   }
 })
+$('.price').each(function () {
+  calculateSum();
+});
+
+function calculateSum() {
+  var sum = 0;
+  $(".price").each(function () {
+    if (!isNaN(this.value) && this.value.length != 0) {
+      sum += parseFloat(this.value);
+    }
+  });
+  $('#total').text(sum);
+}
+var total = Number($('#total').text())
+if (total == 0) {
+  $('#rowTotal').css('display', 'none');
+  $('#selectBooks').css('display', 'none');
+  $('#rowText').css('display', 'display');
+} else {
+  $('#selectBooks').css('display', 'block')
+  $('#rowTotal').css('display', 'display');
+  $('#rowText').css('display', 'none');
+}
+
 
 function select(idBook) {
   var getToken = JSON.parse(localStorage.getItem("token"));

@@ -59,7 +59,7 @@ router.post('/login', async (req, res) => {
       status: member.status
     }
     jwt.sign(payload, 'books', { //สร้าง token
-      expiresIn: 600
+      expiresIn: 4200
     }, (err, token) => {
       res.render('success', {
         token: token,
