@@ -18,9 +18,12 @@ var booksSchema = mongoose.Schema({
     },
     amount: {
       type: Number,
-      required: true,
-      default: 1
     },
+    online: {
+      type: Boolean,
+    },
+    pathOnline: String,
+    nameOnline: String,
     path: String,
     name: String
   }, {

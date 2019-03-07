@@ -1,4 +1,18 @@
 $(document).ready(function () {
+  //addBok
+  $('[name="onlineCheck"]').change(function () {
+    if ($('#onlineCheck').is(':checked')) {
+      $('#formFileBook').css('display', "block")
+      $('#fileBook').attr('required', true)
+      $('#amount').attr('disabled', 'disabled')
+      $('#amount').attr('required', false)
+    } else {
+      $('#formFileBook').css('display', "none")
+      $('#fileBook').attr('required', false)
+      $('#amount').attr('disabled', false)
+      $('#amount').attr('required', true)
+    }
+  })
   $('#bookTable').DataTable({
     pageLength: 25
   });
@@ -11,7 +25,7 @@ $(document).ready(function () {
     $('#addModal').modal('show');
   })
   $('#hideShow').click(() => {
-    $('#description').toggle();
+    $('#descriptionDetail').toggle();
   })
   var currentUrl = window.location.href;
   var url = currentUrl.split("/")[4];
@@ -103,10 +117,11 @@ $(document).ready(function () {
         // var user = result.data.decode.email;
         // console.log(user)
         var tokenEmail = result.data.decode.email;
-        $('#tokenEmail').val(tokenEmail);
+        $('.tokenEmail').val(tokenEmail);
         var status = result.data.decode.status;
         console.log(status)
         if (status == 'admin') {
+          $('#comfirmPayment').css('display', 'block')
           $('.amount').removeAttr('max')
           $(':input').removeAttr('disabled')
           $('#addBook').css('display', 'block')
@@ -126,7 +141,7 @@ $(document).ready(function () {
     })
   } else {
     var url = window.location.pathname;
-    if (url == '/users' || url == '/books/select') {
+    if (url == '/users' || url == '/books/select' || url == '/books/status') {
       if (url !== '/users/login') {
         window.location.href = '/users/login';
       }
@@ -138,6 +153,15 @@ $(document).ready(function () {
     localStorage.removeItem('book')
   })
 
+  //status Book
+  console.log($('#totalStatus').text())
+  if (Number($('#totalStatus').text()) > 0) {
+    $('#noProduct').css('display', 'none')
+    $('#rowTotalStatus').css('display', 'display')
+  } else {
+    $('#noProduct').css('display', 'display')
+    $('#rowTotalStatus').css('display', 'none')
+  }
 
 });
 
@@ -265,7 +289,6 @@ var showAmount = 0;
 
 getLocalCart.forEach(item => {
   var getToken = JSON.parse(localStorage.getItem("token"));
-
   showAmount += item.amount;
   $('#amountCart').text(showAmount)
   var amountDetail = Number($('#amountDetail' + item.bookId).attr('max'))
@@ -282,6 +305,9 @@ getLocalCart.forEach(item => {
   $('#selectSum' + item.bookId).val(selectSum);
   $('#hideSelectSum' + item.bookId).val(selectSum);
   $('#selectId' + item.bookId).css('display', '')
+  if ($('#countBook' + item.bookId).text() == 'หนังสือออนไลน์') {
+    $('#btnSelect' + item.bookId).attr('disabled', 'desabled')
+  }
   if (newAmountDetail <= 0) {
     $('#amountDetail' + item.bookId).attr('disabled', 'disabled')
     $('#btnSelect' + item.bookId).attr('disabled', 'desabled')
@@ -289,6 +315,9 @@ getLocalCart.forEach(item => {
     $('#countBook' + item.bookId).css('display', 'none')
   }
 })
+
+
+
 $('.price').each(function () {
   calculateSum();
 });
@@ -328,6 +357,9 @@ function select(idBook) {
     }
     if (amount > max) {
       amount = max;
+    }
+    if ($('#countBook' + id).text() == 'หนังสือออนไลน์') {
+      $('#btnSelect' + id).attr('disabled', 'desabled')
     }
     var newMax = max - amount;
     if (newMax <= 0) {

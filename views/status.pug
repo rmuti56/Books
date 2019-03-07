@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  div(class="row justify-content-md-center")
+    div(class="col-md-8")
+      div(class="card text-center" style="border-color:#ffc107!important;")
+        div(class="card-header" style="border-color:#ffc107!important;") 
+          h5(class='text-warning')  <i class="fa fa-undo" style="font-size:25px"></i>สถานะของสินค้า
+        div(class="card-body")
+          form(action='/books/select',method='post')
+            input(type="hidden" class="tokenEmail" name="tokenEmail" value="5")
+            table(id="showCart" align='center' )
+              thead
+                tr
+                  th รหัสสินค้า
+                  th ชื่อสินค้า
+                  th ราคา
+                  th จำนวน 
+                  th รวมเป็นเงิน(บาท)
+                  th สถานะของสินค้า
+              <tbody>
+              for item in data
+                tr(id='selectId'+item._id )
+                  td(id="selectIsbn"+item._id ) #{item.isbn}
+                  td(id="selectTitle"+item._id ) #{item.title}
+                  td(id="selectPrice"+item._id ) #{item.price}
+                  td(id="selectAmount"+item._id ) #{item.selectAmount}
+                  td(class="sumStatus" ) #{item.price * item.selectAmount}
+                  td(class="text-warning") อยู่ระหว่างรอชำระเงิน
+              tr(id="rowTotalStatus")
+                td(colspan="4") รวมเป็นเงินทั้งสิน
+                td(colspan="2" id="totalStatus" value=""+sum) #{sum}
+              tr(id="rowTextStatus")
+                td(colspan="6" id="noProduct") ไม่มีสินค้าชำระในขณะนี้
+              </tbody>
+               
+              

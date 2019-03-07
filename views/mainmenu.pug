@@ -5,14 +5,25 @@ div#navmain
       span(class="navbar-toggler-icon")
     div(class="collapse navbar-collapse" id="navbarText")
       ul(class="navbar-nav mr-auto")
-        a(class="nav-link " id="menuHome" href="/") หน้าแรก |
-        a(class="nav-link" id="menuUser" href="/users")  สมาชิก |
-        a(class="nav-link" id="menuBook" href="/books")  หนังสือ |
+        a(class="nav-link " id="menuHome" href="/") หน้าแรก
+        a(class="nav-link" id="menuBook" href="/books")  หนังสือ
         a(class="nav-link" id="menuSelect" href="/books/select") <i class="fa fa-cart-arrow-down" style="font-size:25px"></i>สินค้าในตะกร้า
           span() 
             span(id="amountCart")  0
             span  ชิ้น
-           
+   
+      ul(class="navbar-nav")
+        li(class="nav-item dropdown")
+          a(class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false") เกี่ยวกับหนังสือ
+          div(class="dropdown-menu")
+            form(action='/books/status',method='post')
+              input(type="hidden" class="tokenEmail" name="tokenEmailMenu" value="5")
+              input( type="submit" class="dropdown-item"  value="สถานะของสินค้า")  
+              a(class="dropdown-item"  href="/books/history")  ประวัติการซื้อหนังสือ 
+              a(class="dropdown-item"  href="/books/mybooks")  หนังสือของฉัน
+              a(class="dropdown-item"  href="/books/comfirm" style="display:none" id="comfirmPayment")  ยืนยันการชำระเงิน
+              div(class="dropdown-divider")
+        a(class="nav-link" id="menuUser" href="/users")  สมาชิก      
       button(class='btn btn-outline-light my-2 my-sm-0 ' id="login") ลงชื่อเข้าใช้
   #loginModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
         .modal-dialog(role='document')

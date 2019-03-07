@@ -16,16 +16,23 @@ block content
                   form(method='post' action='javascript:void(0)')
                     div(class="card col-md-auto" style="width: 30rem;")
                       img(class="card-img-top" src="/images/upload"+bookData.name  alt="หนังสือ")
-                    div(class="form-group")
+                      if bookData.online
+                        div(class="form-group" style="padding-top:20px")
+                          a(href="" id="bookOnlineDetail"+bookData._id) หนังสือออนไลน์
+                    div(class="form-group" style="padding-top:20px")
                       label(for='isbn') ISBN :
                       input(class="form-control" type='text',name='isbn' id="isbnDetail",size='30',placeholder='รหัส ISBN' value=""+bookData.isbn required disabled)
                     div(class="form-group")
                       label(for='title') ชื่อหนังสือ :
                       input(class="form-control" type='text',name='title' id="titleDetail" size='50',placeholder='ชื่อหนังสือ' required value=""+bookData.title disabled)
-                    div(class="form-group text-center")
-                      span(id="countBook"+bookData._id style="color:green; ") หนังสือเหลือ   
-                        span(id="count"+bookData._id ) #{bookData.amount} 
-                        span  เล่ม
+                      if bookData.online
+                        div(class="form-group text-center")
+                          span(id="countBook"+bookData._id style="color:green; ") หนังสือออนไลน์
+                      else  
+                        div(class="form-group text-center")
+                          span(id="countBook"+bookData._id style="color:green; ") หนังสือเหลือ   
+                            span(id="count"+bookData._id ) #{bookData.amount} 
+                            span  เล่ม
                     div(class="form-group")
                       div(class="row")
                         div(class="col-md")
@@ -33,7 +40,10 @@ block content
                           input(class="form-control" type="number",name='price' id="priceDetail" size='30',placeholder='ราคา' required value=""+bookData.price disabled)
                         div(class="col-md")
                           label(for="amount") จำนวน :
-                          input(class="form-control" type="number" name="amount" class="amount" id="amountDetail"+bookData._id size="30" placeholder="จำนวน" min="0" step="1" value="1" max=""+bookData.amount amount=""+bookData.amount)
+                          if bookData.online
+                            input(class="form-control" type="number" name="amount" class="amount" id="amountDetail"+bookData._id size="30" placeholder="จำนวน" min="0" step="1" value="1" max=""+bookData.amount amount=""+bookData.amount disabled)
+                          else  
+                            input(class="form-control" type="number" name="amount" class="amount" id="amountDetail"+bookData._id size="30" placeholder="จำนวน" min="0" step="1" value="1" max=""+bookData.amount amount=""+bookData.amount)
                     div(class="form-group")
                       p(id="hideShow") รายละเอียดหนังสือ...
                       textarea(name="description", cols="30", rows="5" class='form-control'  id="descriptionDetail" style="display:none" disabled) #{bookData.description}
@@ -76,6 +86,12 @@ block content
                 div(class="text-align-center")
                   h1 #{title}
                   <form action='/books/add' method='post' encType="multipart/form-data">
+                    div(class="form-group form-check")
+                      input(type="checkbox" name="onlineCheck" class="form-check-input" id="onlineCheck")
+                      label(class="form-check-label" for="onlinkCheck") หนังสือออนไลน์
+                    div(class="form-group" id="formFileBook"  style="display:none")
+                      label(for="fileBook") หนังสือ
+                      input(type="file" name="fileBook" id="fileBook" accept="application/pdf")
                     div(class="form-group")
                       label(for='isbn') ISBN :
                       input(class="form-control" type='text',name='isbn',size='30',placeholder='รหัส ISBN' required)
@@ -89,7 +105,7 @@ block content
                           input(class="form-control" type="number",name='price',size='30',placeholder='ราคา' required)
                         div(class="col-md")
                           label(for='amount') จำนวน :
-                          input(class="form-control" type="number" name='amount' size="30" placeholder='จำนวน' value='1' required)
+                          input(class="form-control" type="number" name='amount' id="amount" size="30" placeholder='จำนวน' value='1' required)
                     div(class="form-group")
                       label(for='description') รายละเอียดหนังสือ
                       textarea(name="description", cols="30", rows="5" class='form-control')
@@ -137,6 +153,12 @@ block content
                 div(class="text-align-center")
                   h1 #{title}
                   <form action='/books/add' method='post'  encType="multipart/form-data">
+                    div(class="form-group form-check")
+                      input(type="checkbox" class="form-check-input" id="onlineCheck" name="onlineCheck")
+                      label(class="form-check-label" for="onlinkCheck") หนังสือออนไลน์
+                    div(class="form-group" id="formFileBook"  style="display:none")
+                      label(for="fileBook") หนังสือ
+                      input(type="file" name="fileBook"  id="fileBook" accept="application/pdf")
                     div(class="form-group")
                       label(for='isbn') ISBN :
                       input(class="form-control" type='text',name='isbn',size='30',placeholder='รหัส ISBN' required)
@@ -150,7 +172,7 @@ block content
                           input(class="form-control" type="number",name='price',size='30',placeholder='ราคา' required)
                         div(class="col-md")
                           label(for='amount') จำนวน :
-                          input(class="form-control" type="number" name='amount' size="30" placeholder='จำนวน' value='1' required)
+                          input(class="form-control" type="number" name='amount' id="amount" size="30" placeholder='จำนวน' value='1' required)
                     div(class="form-group")
                       label(for='description') รายละเอียดหนังสือ
                       textarea(name="description", cols="30", rows="5" class='form-control')

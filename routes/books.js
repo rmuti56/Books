@@ -22,7 +22,6 @@ router.get('/select', (req, res) => {
   })
 })
 
-
 router.post('/select', (req, res) => {
   books.find((err, dbBooks) => {
     var email = req.body.tokenEmail
@@ -38,6 +37,12 @@ router.post('/select', (req, res) => {
           title: item.title,
           price: item.price,
           selectAmount: amount,
+          online: item.online,
+          pathOnline: item.pathOnline,
+          nameOnline: item.nameOnline,
+          path: item.path,
+          name: item.name,
+          payment: false,
           sum: req.body[sum]
         }).save((err) => {
           if (err) {
@@ -57,9 +62,52 @@ router.post('/select', (req, res) => {
         })
       }
     })
-    res.render('selectsuccess', {
+    res.render('success', {
       title: 'เลือกสินค้าสำเร็จ'
     })
+  })
+})
+
+router.post('/status', (req, res) => {
+  var email = req.body.tokenEmailMenu
+  select.find({
+    $and: [{
+      email: email
+    }, {
+      payment: false
+    }]
+  }, (err, dbBooks) => {
+    var sum = 0;
+    dbBooks.forEach(item => {
+      sum += (item.price * item.selectAmount)
+    })
+    res.render('status', {
+      data: dbBooks,
+      sum
+    })
+  })
+})
+
+router.get('/comfirm', (req, res) => {
+  select.find({
+    payment: false
+  }, (err, dbBooks) => {
+    err ? res.json(err) : res.render('payment', {
+      data: dbBooks
+    })
+  })
+})
+
+router.post('/payment', (req, res) => {
+  let id = req.body.name;
+  select.findByIdAndUpdate({
+    _id: id
+  }, {
+    payment: true
+  }, {
+    new: true
+  }, (err) => {
+    err ? res.json(err) : res.redirect('/books/comfirm')
   })
 })
 
@@ -83,26 +131,57 @@ router.get('/add', (req, res) => {
 })
 
 router.post('/add', (req, res) => {
+  let bookUpload = req.files.fileBook;
   let fileUpload = req.files.photo;
   let fileName = `${Date.now()}.jpg`
   let path = 'public/images/upload' + fileName;
-  fileUpload.mv(path, (err) => {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    new books({
-      isbn: req.body.isbn,
-      title: req.body.title,
-      price: req.body.price,
-      description: req.body.description,
-      path: path,
-      name: fileName,
-      amount: req.body.amount
-    }).save((err) => {
-      err ? res.json(err) : res.redirect('/books');
+  if (bookUpload) {
+    let bookName = `${Date.now()}.pdf`
+    let pathOnline = 'public/images/book' + bookName;
+    bookUpload.mv(pathOnline, (err) => {
+      if (err) {
+        return res.status(500).send(err);
+      } else {
+        fileUpload.mv(path, (err) => {
+          if (err) {
+            return res.status(500).send(err);
+          }
+          new books({
+            isbn: req.body.isbn,
+            title: req.body.title,
+            price: req.body.price,
+            description: req.body.description,
+            path: path,
+            name: fileName,
+            online: true,
+            pathOnline: pathOnline,
+            nameOnline: bookName,
+            amount: 10000
+          }).save(err => {
+            err ? res.json(err) : res.redirect('/books');
+          })
+        })
+      }
     })
-  })
-
+  } else {
+    fileUpload.mv(path, (err) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      new books({
+        isbn: req.body.isbn,
+        title: req.body.title,
+        price: req.body.price,
+        description: req.body.description,
+        path: path,
+        name: fileName,
+        online: false,
+        amount: req.body.amount
+      }).save((err) => {
+        err ? res.json(err) : res.redirect('/books');
+      })
+    })
+  }
 })
 
 router.param('id', (req, res, next, id) => {

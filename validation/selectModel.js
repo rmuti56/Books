@@ -21,15 +21,25 @@ var selectsSchema = mongoose.Schema({
     required: true,
     defalut: 1
   },
+  online: {
+    type: Boolean,
+  },
   sum: {
     type: Number,
     require: true
+  },
+  payment: {
+    type: Boolean
   },
   selectDate: {
     type: Date,
     required: true,
     default: Date.now
-  }
+  },
+  pathOnline: String,
+  nameOnline: String,
+  path: String,
+  name: String
 }, {
   versionKey: false
 })
