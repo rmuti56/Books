@@ -97,7 +97,7 @@ $(document).ready(function () {
   if ($('#checkLogin').text() == 'ลงชื่อเข้าใช้สำเร็จ') {
     setTimeout(() => {
       window.location.href = '/'
-    }, 2000)
+    }, 1000)
   }
 
   var getToken = JSON.parse(localStorage.getItem("token"));
@@ -156,7 +156,7 @@ $(document).ready(function () {
     })
   } else {
     var url = window.location.pathname;
-    if (url != '/' && url != '/books/:' && url != '/books') {
+    if (url != '/' && url && url != '/books') {
       if (url !== '/users/login') {
         window.location.href = '/users/login';
       }
@@ -365,11 +365,22 @@ if (total == 0) {
   $('#selectBooks').css('display', 'none');
   $('#rowText').css('display', 'display');
 } else {
-  $('#selectBooks').css('display', 'block')
+  $('#selectBooks').css('display', 'display')
   $('#rowTotal').css('display', 'display');
   $('#rowText').css('display', 'none');
 }
 
+function cancel(idBook) {
+  var id = $(idBook).attr('newId');
+
+  let newLocal = getLocalCart.filter((localCart) => {
+    return localCart.bookId != id;
+  })
+
+  localStorage.removeItem('book')
+  localStorage.setItem('book', JSON.stringify(newLocal));
+  window.location.href = "/books/select"
+}
 
 function select(idBook) {
   var getToken = JSON.parse(localStorage.getItem("token"));
@@ -378,13 +389,15 @@ function select(idBook) {
     var isbn = $('#isbnDetail').val();
     var title = $('#titleDetail').val();
     var description = $('#descriptionDetail').val();
-    var amount = $('#amountDetail' + id).val();
-    var max = $('#amountDetail' + id).attr('max');
+    var amount = Number($('#amountDetail' + id).val());
+    var max = Number($('#amountDetail' + id).attr('max'));
     if (amount < 0) {
       return;
     }
+
     if (amount > max) {
       amount = max;
+
     }
     if ($('#countBook' + id).text() == 'หนังสือออนไลน์') {
       $('#btnSelect' + id).attr('disabled', 'desabled')

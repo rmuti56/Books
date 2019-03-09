@@ -24,6 +24,7 @@ var booksSchema = mongoose.Schema({
     },
     pathOnline: String,
     nameOnline: String,
+    sellAmount: Number,
     path: String,
     name: String
   }, {

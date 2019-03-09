@@ -6,8 +6,8 @@ block content
       div(class="card text-center")
         div(class="card-header" style="background-color:#6c757d;") 
           h5(class='text-light')  <i class="fa fa-cart-arrow-down" style="font-size:25px"></i>สินค้าในตะกร้า
-        div(class="card-body")
-          form(action='/books/select',method='post')
+        div(class="card-body text-center")
+          form(action='/books/select',method='post' )
             input(type="hidden" class="tokenEmail" name="tokenEmail" value="5")
             table(id="showCart" align='center' )
               thead
@@ -17,6 +17,7 @@ block content
                   th ราคา
                   th จำนวน 
                   th รวมเป็นเงิน
+                  
               <tbody>
               for item in data
                 tr(id='selectId'+item._id style="display:none")
@@ -27,13 +28,19 @@ block content
                   input(type="hidden" id="hideSelectAmount"+item._id name="selectAmount"+item._id )
                   td(class="price" id="selectSum"+item._id ) 0
                   input(type="hidden" id="hideSelectSum"+item._id name="selectSum"+item._id )
+                  td(style="border:none;")
+                    button(class="btn btn-outline-danger" onclick='cancel(this)'  type="button" newId=""+item._id) ยกเลิกสินค้า
               tr(id="rowTotal")
                 td(colspan="4") รวมเป็นเงินทั้งสิน
                 td(id="total") บาท
               tr(id="rowText")
                 td(colspan="5") ยังไม่ได้เลือกสินค้า 
-              </tbody>
-            button(class="btn btn-outline-success btn-block" id="selectBooks") 
-              i(class="fa fa-money") 
-              span ยืนยันการเลือกสินค้า     
+              tr
+                td(colspan="4" style="border:none")
+                td(style="border:none;")
+                  button(class="btn btn-outline-success btn-block" id="selectBooks" style="margin-top:.5rem;" ) 
+                    i(class="fa fa-money") 
+                    span ยืนยันการเลือกสินค้า     
               
+              </tbody>
+            

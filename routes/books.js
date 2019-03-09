@@ -32,6 +32,7 @@ router.post('/select', (req, res) => {
       let sum = `selectSum${item._id}`
       if (amount > 0) {
         var newAmount = item.amount - amount;
+        var newSellAmount = item.sellAmount + amount;
         new select({
           email: email,
           isbn: item.isbn,
@@ -54,7 +55,8 @@ router.post('/select', (req, res) => {
         books.findByIdAndUpdate({
           _id: item._id
         }, {
-          amount: newAmount
+          amount: newAmount,
+          sellAmount: newSellAmount
         }, {
           new: true
         }, (err) => {
@@ -263,7 +265,8 @@ router.post('/add', (req, res) => {
             online: true,
             pathOnline: pathOnline,
             nameOnline: bookName,
-            amount: 10000
+            amount: 10000,
+            sellAmount: 0
           }).save(err => {
             err ? res.json(err) : res.redirect('/books');
           })
@@ -300,7 +303,6 @@ router.param('id', (req, res, next, id) => {
 
 
 router.get('/:id', (req, res) => {
-
   books.find((err, dbBooks) => {
     res.render('books', {
       title: 'รายการหนังสือ',
