@@ -2,10 +2,10 @@ extends layout
 
 block content
   div(class="row justify-content-md-center")
-    div(class="col-md-auto")
-      div(class="card text-center" style="border-color:green;")
-        div(class="card-header" style="border-color:green;") 
-          h5(class='text-success')  <i class="fa fa-cart-arrow-down" style="font-size:25px"></i>สินค้าในตะกร้า
+    div(class="col-md-12")
+      div(class="card text-center")
+        div(class="card-header" style="background-color:#6c757d;") 
+          h5(class='text-light')  <i class="fa fa-cart-arrow-down" style="font-size:25px"></i>สินค้าในตะกร้า
         div(class="card-body")
           form(action='/books/select',method='post')
             input(type="hidden" class="tokenEmail" name="tokenEmail" value="5")

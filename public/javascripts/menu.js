@@ -94,6 +94,11 @@ $(document).ready(function () {
   if (token.length > 1) {
     localStorage.setItem('token', JSON.stringify(token));
   }
+  if ($('#checkLogin').text() == 'ลงชื่อเข้าใช้สำเร็จ') {
+    setTimeout(() => {
+      window.location.href = '/'
+    }, 2000)
+  }
 
   var getToken = JSON.parse(localStorage.getItem("token"));
   if (getToken) {
@@ -118,6 +123,16 @@ $(document).ready(function () {
         // console.log(user)
         var tokenEmail = result.data.decode.email;
         $('.tokenEmail').val(tokenEmail);
+        //menu
+        $('#menuStatus').click(() => {
+          $('#menuStatus').attr('href', '/books/status?email=' + tokenEmail)
+        })
+        $('#menuHistory').click(() => {
+          $('#menuHistory').attr('href', '/books/history?email=' + tokenEmail)
+        })
+        $('#menuMybooks').click(() => {
+          $('#menuMybooks').attr('href', '/books/mybooks?email=' + tokenEmail)
+        })
         var status = result.data.decode.status;
         console.log(status)
         if (status == 'admin') {
@@ -141,11 +156,11 @@ $(document).ready(function () {
     })
   } else {
     var url = window.location.pathname;
-    if (url == '/users' || url == '/books/select' || url == '/books/status') {
+    if (url != '/' && url != '/books/:' && url != '/books') {
       if (url !== '/users/login') {
         window.location.href = '/users/login';
       }
-    }
+    } else {}
   }
 
   //select book
@@ -163,7 +178,20 @@ $(document).ready(function () {
     $('#rowTotalStatus').css('display', 'none')
   }
 
+  //menu
+
+
 });
+
+function seen(newId) {
+  var id = $(newId).attr('newId');
+  $('#buttonPayment' + id).css('display', 'block')
+}
+
+function leave(newId) {
+  var id = $(newId).attr('newId')
+  $('#buttonPayment' + id).css('display', 'none')
+}
 
 function post(path) { // update and delete method post
   method = "post";

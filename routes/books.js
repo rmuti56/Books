@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var books = mongoose.model('books');
 var select = mongoose.model('selects')
+var users = mongoose.model('users')
 
 router.get('/', (req, res) => {
   books.find((err, dbBooks) => {
@@ -40,6 +41,7 @@ router.post('/select', (req, res) => {
           online: item.online,
           pathOnline: item.pathOnline,
           nameOnline: item.nameOnline,
+          description: item.description,
           path: item.path,
           name: item.name,
           payment: false,
@@ -68,8 +70,8 @@ router.post('/select', (req, res) => {
   })
 })
 
-router.post('/status', (req, res) => {
-  var email = req.body.tokenEmailMenu
+router.get('/status', (req, res) => {
+  var email = req.query.email
   select.find({
     $and: [{
       email: email
@@ -86,6 +88,111 @@ router.post('/status', (req, res) => {
       sum
     })
   })
+})
+
+router.get('/history', (req, res) => {
+  var email = req.query.email
+  select.find({
+    $and: [{
+      email: email
+    }, {
+      payment: true
+    }]
+  }, (err, dbBooks) => {
+    if (dbBooks.length >= 1) {
+      res.render('history', {
+        data: dbBooks
+      })
+    } else {
+      res.render('history')
+    }
+  })
+})
+
+router.get('/mybooks', (req, res) => {
+  var email = req.query.email
+  var noemail = req.query.noemail
+  var id = req.query.id
+  select.find({
+    $and: [{
+      email: email
+    }, {
+      payment: true
+    }, {
+      online: true
+    }]
+  }, (err, dbBooks) => {
+    if (err) {
+      res.json(err)
+    } else {
+      select.find({
+        $and: [{
+          email: email
+        }, {
+          friendSend: true
+        }]
+      }, (err, newDbBooks) => {
+        if (err) {
+          res.json(err)
+        } else {
+          res.render('mybooks', {
+            data: dbBooks,
+            newData: newDbBooks,
+            noemail: noemail,
+            id: id
+          })
+        }
+      })
+    }
+  })
+})
+
+router.post('/mybooks', (req, res) => {
+  var email = req.body.email;
+  var emailFriend = req.body.emailFriend;
+  var id = req.body.id;
+  var title = req.body.title;
+  var name = req.body.name;
+  var nameOnline = req.body.nameOnline;
+  var description = req.body.description;
+  users.find({
+    email: email
+  }, (err, dbEmail) => {
+    if (dbEmail.length > 0) {
+      select.find({
+        $and: [{
+          emailFriend: emailFriend
+        }, {
+          email: email
+        }, {
+          friendSend: true
+        }, {
+          title: title
+        }]
+      }, (err, dbBooks) => {
+        if (dbBooks.length > 0) {
+          res.redirect('/books/mybooks?email=' + emailFriend)
+        } else {
+          new select({
+            emailFriend: emailFriend,
+            email: email,
+            friendSend: true,
+            title: title,
+            name: name,
+            nameOnline: nameOnline,
+            description: description
+          }).save(err => {
+            err ? res.json(err) : res.redirect('/books/mybooks?email=' + emailFriend)
+          })
+        }
+      })
+
+    } else {
+      console.log('เข้านี้นะ4')
+      res.redirect('/books/mybooks?email=' + emailFriend + '&noemail=noemail&id=' + id)
+    }
+  })
+
 })
 
 router.get('/comfirm', (req, res) => {

@@ -6,19 +6,15 @@ var selectsSchema = mongoose.Schema({
   },
   isbn: {
     type: String,
-    required: true
   },
   title: {
     type: String,
-    required: true
   },
   price: {
     type: Number,
-    required: true
   },
   selectAmount: {
     type: Number,
-    required: true,
     defalut: 1
   },
   online: {
@@ -26,7 +22,6 @@ var selectsSchema = mongoose.Schema({
   },
   sum: {
     type: Number,
-    require: true
   },
   payment: {
     type: Boolean
@@ -36,6 +31,9 @@ var selectsSchema = mongoose.Schema({
     required: true,
     default: Date.now
   },
+  friendSend: Boolean,
+  emailFriend: String,
+  description: String,
   pathOnline: String,
   nameOnline: String,
   path: String,

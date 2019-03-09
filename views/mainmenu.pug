@@ -16,11 +16,9 @@ div#navmain
         li(class="nav-item dropdown")
           a(class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false") เกี่ยวกับหนังสือ
           div(class="dropdown-menu")
-            form(action='/books/status',method='post')
-              input(type="hidden" class="tokenEmail" name="tokenEmailMenu" value="5")
-              input( type="submit" class="dropdown-item"  value="สถานะของสินค้า")  
-              a(class="dropdown-item"  href="/books/history")  ประวัติการซื้อหนังสือ 
-              a(class="dropdown-item"  href="/books/mybooks")  หนังสือของฉัน
+              a(class="dropdown-item" id="menuStatus" href="")  สถานะของสินค้า
+              a(class="dropdown-item" id="menuHistory" href="")  ประวัติการซื้อหนังสือ
+              a(class="dropdown-item"  id="menuMybooks" href="")  หนังสือของฉัน
               a(class="dropdown-item"  href="/books/comfirm" style="display:none" id="comfirmPayment")  ยืนยันการชำระเงิน
               div(class="dropdown-divider")
         a(class="nav-link" id="menuUser" href="/users")  สมาชิก      
@@ -34,7 +32,7 @@ div#navmain
                 span(aria-hidden='true') &times;
             .modal-body
               div(class="row justify-content-md-center formAdd")
-                div(class="text-align-center")
+                div(class="text-align-center col-md-10")
                   form(action='/users/login' method='post' encType="multipart/form-data")
                     div(class="form-group")
                       label(for='username') อีเมลล์ :
@@ -56,7 +54,7 @@ div#navmain
                 span(aria-hidden='true') &times;
             .modal-body
               div(class="row justify-content-md-center formAdd")
-                div(class="text-align-center")
+                div(class="text-align-center col-md-10")
                   form(method='post' action='javascript:void(0)')
                     div(class="form-group")
                       label(for="name") ชื่อ :

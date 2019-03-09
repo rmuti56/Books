@@ -2,12 +2,11 @@ extends layout
 
 block content
   div(class="row justify-content-md-center")
-    div(class="col-md-8")
-      div(class="card text-center" style="border-color:#ffc107!important;")
-        div(class="card-header" style="border-color:#ffc107!important;") 
-          h5(class='text-warning')  <i class="fa fa-undo" style="font-size:25px"></i>สถานะของสินค้า
-        div(class="card-body")
-          form(action='/books/select',method='post')
+    div(class="col-md-12")
+      div(class="card text-center" )
+        div(class="card-header " style="background-color:#6c757d;") 
+          h5(class='text-light')  <i class="fa fa-undo" style="font-size:25px"></i>สถานะของสินค้า
+        div(class="card-body border-dark")
             input(type="hidden" class="tokenEmail" name="tokenEmail" value="5")
             table(id="showCart" align='center' )
               thead

@@ -2,12 +2,12 @@ extends layout
 
 block content
   div(class="row justify-content-md-center")
-    div(class="col-md-auto")
-      div(class="card text-center" style="border-color:green;")
-        div(class="card-header" style="border-color:green;") 
-          h5(class='text-success')  <i class="fa fa-cart-arrow-down" style="font-size:25px"></i>สถานะของสินค้า
+    div(class="col-md-12")
+      div(class="card text-center")
+        div(class="card-header" style="background-color:#6c757d;") 
+          h5(class='text-light')  <i class="fa fa-cart-arrow-down" style="font-size:25px"></i>สถานะของสินค้า
         div(class="card-body")
-            table(id="showCart" align='center' )
+            table(id="showCart" align='center' style='width:70%;' )
               thead
                 tr
                   th รหัสสินค้า
@@ -17,23 +17,25 @@ block content
                   th รวมเป็นเงิน(บาท)
                   th สถานะของสินค้า
               <tbody>
-              for item in data
-                form(action='/books/payment',method='post')
-                  input(type="hidden" value=""+item._id name="name")
-                  tr(id='selectId'+item._id )
-                    td(id="selectIsbn"+item._id ) #{item.isbn}
-                    td(id="selectTitle"+item._id ) #{item.title}
-                    td(id="selectPrice"+item._id ) #{item.price}
-                    td(id="selectAmount"+item._id ) #{item.selectAmount}
-                    td(class="sumStatus" ) #{item.price * item.selectAmount}
-                    td(class="text-warning") อยู่ระหว่างรอชำระเงิน
-                    td(style="border:none")
-                      button(class="btn btn-outline-success") ชำระเงินเรียบร้อย
-              tr(id="rowTotalStatus")
-                td(colspan="4") รวมเป็นเงินทั้งสิน
-                td(colspan="2" id="totalStatus" value=""+sum) #{sum}
-              tr(id="rowTextStatus")
-                td(colspan="6" id="noProduct") ไม่มีสินค้ารอยืนยันในขณะนี้
-              </tbody>
+              if data
+                for item in data
+                  form(action='/books/payment',method='post')
+                    input(type="hidden" value=""+item._id name="name")
+                    tr(id='payMentId'+item._id newId=""+item._id onmouseenter="seen(this)" onmouseleave="leave(this)")
+                      td(id="payMentIsbn"+item._id class='td-payment') #{item.isbn}
+                      td(id="payMentTitle"+item._id class='td-payment') #{item.title}
+                      td(id="payMentPrice"+item._id class='td-payment') #{item.price}
+                      td(id="payMentAmount"+item._id class='td-payment') #{item.selectAmount}
+                      td(class="sumStatus" ) #{item.price * item.selectAmount}
+                      td(class="text-warning") อยู่ระหว่างรอชำระเงิน
+                      td(style="border:none;"  )
+                        button(class="btn btn-outline-success" class="button-payment" style="display:none" id="buttonPayment"+item._id) ชำระเงินเรียบร้อย
+                tr(id="rowTotalStatus")
+                  td(colspan="4") รวมเป็นเงินทั้งสิน
+                  td(colspan="2" id="totalStatus" value=""+sum) #{sum}
+              else
+                tr(id="rowTextStatus")
+                  td(colspan="6" id="noProduct") ไม่มีสินค้ารอยืนยันในขณะนี้
+                </tbody>
                
               

@@ -1,0 +1,42 @@
+extends layout
+
+block content
+  div(class="card text-center")
+    div(class="card-header border-dark" style="background-color:#6c757d;" ) 
+      h5(class='text-light')  <i class="fa fa-file-text-o" style="font-size:25px"></i>หนังสือของฉัน
+    div(class="card-body")
+      div(class="row justify-content-center mx-auto")
+        for item in data
+          div(class="col-lg-6 col-md-12 mx-auto" style="padding-top:20px")
+            div(class="card cardMyBook")
+              img(class="card-img-top" src="/images/upload"+item.name)
+              div(class="card-body") 
+                h5(class="card-title" ) #{item.title}
+                p(class="card-text") #{item.description}
+                form(action="/books/mybooks" method="post")
+                  input(type="hidden" name="title" value=""+item.title)
+                  input(type="hidden" name="description" value=""+item.description)
+                  input(type="hidden" name="name" value=""+item.name)
+                  input(type="hidden" name="nameOnline" value=""+item.nameOnline)
+                  input(type="hidden" name="emailFriend" class="tokenEmail")
+                  input(type="hidden" name="id" value=""+item._id)
+                  div(class="form-group")
+                  if noemail && id==item._id
+                    span(id="onemail"+idOnEmail style="color:red;") ไม่มีอีเมลล์ที่เลือกอยู่ในระบบ
+                  else
+                  input(type="email" name="email" class="form-control" style="display:;text-align:center" placeholder="กรอกอีเมลล์ของเพื่อนที่ต้องการส่งให้" required)
+                  button(class="btn btn-outline-dark" class="form-control" type="submit" ) ส่งหนังสือให้เพื่อน
+                object(type="application/pdf" data="/images/book"+item.nameOnline width="100%"  style="height: 50vh;padding-top:20px") No Support
+  div(class="card text-center" style="margin-top:20px")
+    div(class="card-header border-dark" style="background-color:#6c757d;" ) 
+      h5(class='text-light')  <i class="fa fa-file-text-o" style="font-size:25px"></i>หนังสือจากเพื่อน
+    div(class="card-body")
+      div(class="row justify-content-center mx-auto")
+        for item in newData
+          div(class="col-lg-6 col-md-12 mx-auto" style="padding-top:20px")
+            div(class="card cardMyBook")
+              img(class="card-img-top" src="/images/upload"+item.name)
+              div(class="card-body") 
+                h5(class="card-title") #{item.title}
+                p(class="card-text") #{item.description}
+                object(type="application/pdf" data="/images/book"+item.nameOnline width="100%"  style="height: 50vh;padding-top:20px") No Support 

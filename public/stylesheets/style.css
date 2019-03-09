@@ -11,7 +11,7 @@ body {
 
 th,
 td {
-  border: 1px solid #1E90FF;
+  border: 1px solid gray;
 }
 
 table {
@@ -20,7 +20,7 @@ table {
 
 th {
   color: #fff;
-  background-color: #1E90FF;
+  background-color: gainsboro;
   text-align: left;
 }
 
@@ -53,4 +53,50 @@ i {
 
 .status {
   display: none;
+}
+
+.cardMyBook:hover {
+  box-shadow: 5px 5px 5px 5px darkgray;
+  transition: 300ms;
+}
+
+.button-payment {
+  margin-top: -21px;
+  margin-left: 5px;
+  z-index: 9999;
+  position: fixed;
+  display: none;
+}
+
+.td-payment {
+  padding: .5rem !important;
+}
+
+.footer-custom {
+  position: fixed;
+  bottom: 0px;
+  text-align: center;
+  width: 100%;
+  color: #ffffff !important;
+  background-color: #007bff;
+  padding: .5rem;
+  ;
+}
+
+#navfooter>nav>a {
+  color: #ffffff;
+  padding: .5rem;
+}
+
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 550px !important;
+    margin: 1.75rem auto;
+  }
+}
+
+.modal-body {
+  max-height: 570px !important;
+  overflow-y: auto !important;
 }
