@@ -12,12 +12,13 @@ block content
           div(class="row justify-content-center mx-auto")
             for item in data
               div(class="col-lg-6 col-md-12 mx-auto" style="padding-top:20px;")
-                div(class="card cardMyBook")
-                  img(class="card-img-top" src="/images/upload"+item.name style="height:20rem;")
-                  div(class="card-body") 
-                    h5(class="card-title" ) #{item.title}
-                    p(class="card-text") ราคาเล่มละ #{item.price} บาท
-                    p(class="card-text")  #{item.description}
+                a(href='/books/'+item._id class="a-detail")
+                  div(class="card cardMyBook")
+                    img(class="card-img-top" src="/images/upload"+item.name style="height:20rem;")
+                    div(class="card-body") 
+                      h5(class="card-title" ) #{item.title}
+                      p(class="card-text") ราคาเล่มละ #{item.price} บาท
+                      p(class="card-text")  #{item.description}
   div(id="accordion")
     div(class="card ")
       div(class="card-header border-dark" style="background-color:#6c757d;" id="headingtwo") 
@@ -27,11 +28,12 @@ block content
       div(id="collapseTwo" class="collapse show" aria-labelledby="headingtwo" data-parent="#accordion" style="transition: all 1500ms ease 0s;")
         div(class="card-body")
           div(class="row justify-content-center mx-auto")
-            for item in cheap
-              div(class="col-lg-6 col-md-12 mx-auto" style="padding-top:20px;")
-                div(class="card cardMyBook")
-                  img(class="card-img-top" src="/images/upload"+item.name style="height:20rem;")
-                  div(class="card-body") 
-                    h5(class="card-title") #{item.title}
-                    p(class="card-text") ราคาเล่มละ #{item.price} บาท
-                    p(class="card-text") #{item.description}
+            for item in cheap  
+                div(class="col-lg-6 col-md-12 mx-auto" style="padding-top:20px;")
+                  a(href='/books/'+item._id class="a-detail")
+                    div(class="card cardMyBook")
+                      img(class="card-img-top" src="/images/upload"+item.name style="height:20rem;")
+                      div(class="card-body") 
+                        h5(class="card-title") #{item.title}
+                        p(class="card-text") ราคาเล่มละ #{item.price} บาท
+                        p(class="card-text") #{item.description}
