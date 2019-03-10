@@ -71,15 +71,16 @@ block content
           th รหัส
           th ชื่อหนังสือ
           th ราคา
-          th
+          th(style="width:100px !important;")
       <tbody>
       for item in data
         tr
           td #{item.isbn }
           td #{item.title}
           td #{item.price}
-          td 
-            a(href='/books/'+item._id) รายละเอียด
+          td(class="text-center") 
+            button(class="btn btn-outline-primary")
+              a(href='/books/'+item._id class="a-detail") รายละเอียด
       </tbody>
       #addModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
         .modal-dialog(role='document')
@@ -138,15 +139,16 @@ block content
           th รหัส
           th ชื่อหนังสือ
           th ราคา
-          th
+          th(style="width:100px !important;")
       <tbody>
       for item in data
         tr
           td #{item.isbn }
           td #{item.title}
           td #{item.price}
-          td 
-            a(href='/books/'+item._id) รายละเอียด
+          td(class="text-center" ) 
+            button(class="btn btn-outline-primary")
+              a(href='/books/'+item._id class="a-detail") รายละเอียด
       </tbody>
       #addModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
         .modal-dialog(role='document')

@@ -100,3 +100,7 @@ i {
   max-height: 570px !important;
   overflow-y: auto !important;
 }
+
+.a-detail:hover {
+  text-decoration: none;
+}
