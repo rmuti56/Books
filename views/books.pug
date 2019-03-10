@@ -79,8 +79,8 @@ block content
           td #{item.title}
           td #{item.price}
           td(class="text-center") 
-            button(class="btn btn-outline-primary")
-              a(href='/books/'+item._id class="a-detail") รายละเอียด
+            a(href='/books/'+item._id class="a-detail")
+              button(class="btn btn-outline-primary") รายละเอียด
       </tbody>
       #addModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
         .modal-dialog(role='document')
@@ -147,8 +147,8 @@ block content
           td #{item.title}
           td #{item.price}
           td(class="text-center" ) 
-            button(class="btn btn-outline-primary")
-              a(href='/books/'+item._id class="a-detail") รายละเอียด
+            a(href='/books/'+item._id class="a-detail")
+              button(class="btn btn-outline-primary") รายละเอียด
       </tbody>
       #addModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
         .modal-dialog(role='document')
