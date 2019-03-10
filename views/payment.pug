@@ -16,6 +16,7 @@ block content
                   th จำนวน 
                   th รวมเป็นเงิน(บาท)
                   th สถานะของสินค้า
+                  th
               <tbody>
               if data
                 for item in data
@@ -28,8 +29,8 @@ block content
                       td(id="payMentAmount"+item._id class='td-payment') #{item.selectAmount}
                       td(class="sumStatus" ) #{item.price * item.selectAmount}
                       td(class="text-warning") อยู่ระหว่างรอชำระเงิน
-                      td(style="border:none;"  )
-                        button(class="btn btn-outline-success" class="button-payment" style="display:none" id="buttonPayment"+item._id) ชำระเงินเรียบร้อย
+                      td(style=""  )
+                        button(class="btn btn-outline-success"  style="" id="buttonPayment"+item._id) ชำระเงินเรียบร้อย
                 tr(id="rowTotalStatus")
                   td(colspan="4") รวมเป็นเงินทั้งสิน
                   td(colspan="2" id="totalStatus" value=""+sum) #{sum}

@@ -183,15 +183,7 @@ $(document).ready(function () {
 
 });
 
-function seen(newId) {
-  var id = $(newId).attr('newId');
-  $('#buttonPayment' + id).css('display', 'block')
-}
 
-function leave(newId) {
-  var id = $(newId).attr('newId')
-  $('#buttonPayment' + id).css('display', 'none')
-}
 
 function post(path) { // update and delete method post
   method = "post";
