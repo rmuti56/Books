@@ -9,6 +9,7 @@ $(document).ready(function () {
     } else {
       $('#formFileBook').css('display', "none")
       $('#fileBook').attr('required', false)
+      $('#fileBook').val("")
       $('#amount').attr('disabled', false)
       $('#amount').attr('required', true)
     }

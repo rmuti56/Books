@@ -4,11 +4,11 @@ var mongoose = require('mongoose')
 var books = mongoose.model('books')
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  var q = books.find().limit(4).sort({
+  var q = books.find().limit(8).sort({
     'sellAmount': -1
   });
   q.exec((err, dbBooks) => {
-    var cheap = books.find().limit(4).sort({
+    var cheap = books.find().limit(8).sort({
       'price': 1
     });
     cheap.exec((err, result) => {
