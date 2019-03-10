@@ -36,33 +36,85 @@ $(document).ready(function () {
   //end book
   //register
 
-  $('#passwordR').keyup(() => {
-    let Cpassword = $('#confirmPasswordR').val().length
+  $('.passwordR').keyup(() => {
+    let Cpassword = $('.confirmPasswordR').val().length
     if (Cpassword != 0) {
-      let password = $('#passwordR').val()
-      let Cpassword = $('#confirmPasswordR').val()
+      let password = $('.passwordR').val()
+      let Cpassword = $('.confirmPasswordR').val()
       if (password != Cpassword) {
-        $('#checkMatch').css('display', "block");
-        $('#passwordR').css('border-color', 'red');
-        $('#confirmPasswordR').css('border-color', 'red')
+        $('.checkMatch').css('display', "block");
+        $('.passwordR').css('border-color', 'red');
+        $('.confirmPasswordR').css('border-color', 'red')
       } else {
-        $('#checkMatch').css('display', "none");
-        $('#passwordR').css('border-color', '#ced4da');
-        $('#confirmPasswordR').css('border-color', '#ced4da')
+        $('.checkMatch').css('display', "none");
+        $('.passwordR').css('border-color', '#ced4da');
+        $('.confirmPasswordR').css('border-color', '#ced4da')
       }
     }
   })
-  $('#confirmPasswordR').keyup(() => {
-    let password = $('#passwordR').val()
-    let Cpassword = $('#confirmPasswordR').val()
+  $('.confirmPasswordR').keyup(() => {
+    let password = $('.passwordR').val()
+    let Cpassword = $('.confirmPasswordR').val()
     if (password != Cpassword) {
-      $('#checkMatch').css('display', "block");
-      $('#passwordR').css('border-color', 'red');
-      $('#confirmPasswordR').css('border-color', 'red')
+      $('.checkMatch').css('display', "block");
+      $('.passwordR').css('border-color', 'red');
+      $('.confirmPasswordR').css('border-color', 'red')
     } else {
-      $('#checkMatch').css('display', "none");
-      $('#passwordR').css('border-color', '#ced4da');
-      $('#confirmPasswordR').css('border-color', '#ced4da')
+      $('.checkMatch').css('display', "none");
+      $('.passwordR').css('border-color', '#ced4da');
+      $('.confirmPasswordR').css('border-color', '#ced4da')
+    }
+  })
+  $('.passwordR').blur((event) => {
+    let password = $('.passwordR').val().length
+    if (String(password) < 6) {
+      $('.checkPassword').css('display', 'block')
+      $('.passwordR').css('border-color', 'red')
+
+    } else {
+      $('.checkPassword').css('display', 'none');
+      $('.passwordR').css('border-color', '#ced4da')
+    }
+  })
+
+  $('.passwordR1').keyup(() => {
+    let Cpassword = $('.confirmPasswordR1').val().length
+    if (Cpassword != 0) {
+      let password = $('.passwordR1').val()
+      let Cpassword = $('.confirmPasswordR1').val()
+      if (password != Cpassword) {
+        $('.checkMatch').css('display', "block");
+        $('.passwordR1').css('border-color', 'red');
+        $('.confirmPasswordR1').css('border-color', 'red')
+      } else {
+        $('.checkMatch1').css('display', "none");
+        $('.passwordR1').css('border-color', '#ced4da');
+        $('.confirmPasswordR1').css('border-color', '#ced4da')
+      }
+    }
+  })
+  $('.confirmPasswordR1').keyup(() => {
+    let password = $('.passwordR1').val()
+    let Cpassword = $('.confirmPasswordR1').val()
+    if (password != Cpassword) {
+      $('.checkMatch1').css('display', "block");
+      $('.passwordR1').css('border-color', 'red');
+      $('.confirmPasswordR1').css('border-color', 'red')
+    } else {
+      $('.checkMatch1').css('display', "none");
+      $('.passwordR1').css('border-color', '#ced4da');
+      $('.confirmPasswordR1').css('border-color', '#ced4da')
+    }
+  })
+  $('.passwordR1').blur((event) => {
+    let password = $('.passwordR1').val().length
+    if (String(password) < 6) {
+      $('.checkPassword1').css('display', 'block')
+      $('.passwordR1').css('border-color', 'red')
+
+    } else {
+      $('.checkPassword1').css('display', 'none');
+      $('.passwordR1').css('border-color', '#ced4da')
     }
   })
 
@@ -79,17 +131,7 @@ $(document).ready(function () {
     $('#registerModal').modal('hide');
     $('#loginModal').modal('show');
   })
-  $('#passwordR').blur((event) => {
-    let password = $('#passwordR').val().length
-    if (String(password) < 6) {
-      $('#checkPassword').css('display', 'block')
-      $('#passwordR').css('border-color', 'red')
 
-    } else {
-      $('#checkPassword').css('display', 'none');
-      $('#passwordR').css('border-color', '#ced4da')
-    }
-  })
 
   var token = $('#token').text();
   if (token.length > 1) {
@@ -157,7 +199,7 @@ $(document).ready(function () {
     })
   } else {
     var url = window.location.pathname;
-    if (url != '/' && url && url != '/books') {
+    if (url != '/' && url && url != '/books' && url != '/users/register') {
       if (url !== '/users/login') {
         window.location.href = '/users/login';
       }
@@ -238,26 +280,35 @@ function post(path) { // update and delete method post
 }
 
 function register() {
-  let passwordLength = $('#passwordR').val().length
-  let password = $('#passwordR').val()
-  let Cpassword = $('#confirmPasswordR').val()
+  let passwordLength = $('.passwordR').val().length || $('.passwordR1').val().length
+  let password = $('.passwordR').val() || $('.passwordR1').val()
+  let Cpassword = $('.confirmPasswordR').val() || $('.confirmPasswordR1').val()
   if (String(passwordLength) < 6) {
-    $('#checkPassword').css('display', 'block')
-    $('#passwordR').css('border-color', 'red')
+    $('.checkPassword').css('display', 'block')
+    $('.passwordR').css('border-color', 'red')
+    $('.checkPassword1').css('display', 'block')
+    $('.passwordR1').css('border-color', 'red')
 
   } else if (password != Cpassword) {
-    $('#checkMatch').css('display', "block");
-    $('#passwordR').css('border-color', 'red');
-    $('#confirmPasswordR').css('border-color', 'red')
+    $('.checkMatch').css('display', "block");
+    $('.passwordR').css('border-color', 'red');
+    $('.confirmPasswordR').css('border-color', 'red')
+    $('.checkMatch1').css('display', "block");
+    $('.passwordR1').css('border-color', 'red');
+    $('.confirmPasswordR1').css('border-color', 'red')
   } else {
-    $('#checkMatch').css('display', "none");
-    $('#checkMatch').css('display', "none");
-    $('#passwordR').css('border-color', '#ced4da');
-    $('#confirmPasswordR').css('border-color', '#ced4da')
+    $('.checkMatch').css('display', "none");
+    $('.checkMatch').css('display', "none");
+    $('.passwordR').css('border-color', '#ced4da');
+    $('.confirmPasswordR').css('border-color', '#ced4da')
+    $('.checkMatch1').css('display', "none");
+    $('.checkMatch1').css('display', "none");
+    $('.passwordR1').css('border-color', '#ced4da');
+    $('.confirmPasswordR1').css('border-color', '#ced4da')
     method = 'post';
-    var name = $('#nameR').val();
-    var lastName = $('#lastNameR').val();
-    var email = $('#emailR').val();
+    var name = $('.nameR').val() || $('.nameR1').val();
+    var lastName = $('.lastNameR').val() || $('.lastNameR1').val();
+    var email = $('.emailR').val() || $('.emailR1').val();
     var form = document.createElement('form');
     form.setAttribute('method', method);
     form.setAttribute('action', '/users/register');

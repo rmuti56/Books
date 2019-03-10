@@ -20,8 +20,7 @@ div#navmain
               a(class="dropdown-item" id="menuHistory" href="/books/comfirm")  ประวัติการซื้อหนังสือ
               a(class="dropdown-item"  id="menuMybooks" href="/books/comfirm")  หนังสือของฉัน
               a(class="dropdown-item"  href="/books/comfirm" style="display:none" id="comfirmPayment")  ยืนยันการชำระเงิน
-              div(class="dropdown-divider")
-        a(class="nav-link" id="menuUser" href="/users")  สมาชิก      
+        //-a(class="nav-link" id="menuUser" href="/users")  สมาชิก      
       button(class='btn btn-outline-light my-2 my-sm-0 ' id="login") ลงชื่อเข้าใช้
   #loginModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
         .modal-dialog(role='document')
@@ -58,20 +57,20 @@ div#navmain
                   form(method='post' action='javascript:void(0)')
                     div(class="form-group")
                       label(for="name") ชื่อ :
-                      input(class="form-control" type="text" id="nameR" name="name" placeholder="ป้อนชื่อ" size="50" required)
+                      input(class="form-control" type="text" class="nameR" name="name" placeholder="ป้อนชื่อ" size="50" required)
                     div(class="form-group")
                       label(for="lastName") นามสกุล :
-                      input( class="form-control" type="text" id="lastNameR" name="lastName" placeholder="ป้อนนามสกุล" size='50' required)
+                      input( class="form-control" type="text" class="lastNameR" name="lastName" placeholder="ป้อนนามสกุล" size='50' required)
                     div(class="form-group")
                       label(for='username') อีเมลล์ :
-                      input(class="form-control" type='email',name='email' id='emailR' size='50',placeholder='ป้อนอีเมลล์' required)
+                      input(class="form-control" type='email',name='email' class='emailR' size='50',placeholder='ป้อนอีเมลล์' required)
                     div(class="form-group")
                       label(for='password') รหัสผ่าน :
-                      input(class="form-control" type='password',name='password' id="passwordR" size='50',placeholder='ป้อนรหัสผ่าน' required)
+                      input(class="form-control" type='password',name='password' class="passwordR" size='50',placeholder='ป้อนรหัสผ่าน' required)
                       span(id="checkPassword" style="color:red; display:none") รหัสผ่านต้องอย่างน้อย 6 ตัว
                     div(class="form-group")
                       label(for='confirmPassword') ยืนยันรหัสผ่าน :
-                      input(class="form-control" type='password',name='confirmPassword' id="confirmPasswordR",size='50',placeholder='ป้อนรหัสผ่านอีกครั้ง' required)
+                      input(class="form-control" type='password',name='confirmPassword' class="confirmPasswordR",size='50',placeholder='ป้อนรหัสผ่านอีกครั้ง' required)
                       sapn(id="checkMatch" style="color:red; display:none") รหัสผ่านไม่ตรงกัน
                     div(class="form-group ")
                       button(class='btn btn-outline-primary float-right btn-block' onclick='register()') <i class="fa fa-sign-in"></i>ลงทะเบียน 
