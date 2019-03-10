@@ -199,7 +199,7 @@ $(document).ready(function () {
     })
   } else {
     var url = window.location.pathname;
-    if (url != '/' && url && url != '/books' && url != '/users/register') {
+    if (url == '/books/select' || url == '/books/status' || url == '/books/history' || url == '/books/mybooks' || url == '/books/confirm') {
       if (url !== '/users/login') {
         window.location.href = '/users/login';
       }
