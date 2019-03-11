@@ -11,6 +11,7 @@ block content
             table(id="showCart" align='center' )
               thead
                 tr
+                  th ตั้งแต่
                   th รหัสสินค้า
                   th ชื่อสินค้า
                   th ราคา
@@ -20,6 +21,7 @@ block content
               if data
                 for item in data
                   tr
+                    td #{item.dateThai}
                     td #{item.isbn} 
                     td #{item.title}
                     td #{item.price}

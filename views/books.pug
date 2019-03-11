@@ -68,7 +68,7 @@ block content
     div(id="accordion")
     div(class="card ")
       div(class="card-header border-dark" style="background-color:#696969;" id="headingOne") 
-        h5(class='text-light')  <i class="fa fa-file-text-o" style="font-size:25px"></i>หนังสือทั้งหมด
+        h5(class='text-light')  <i class="fa fa-book" style="font-size:25px"></i>หนังสือทั้งหมด
           button(class="btn btn-link float-right" style="color:#ffffff" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne") 
             i(class="fa fa-minus")
       div(id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion" style="transition: all 1500ms ease 0s;")
@@ -81,63 +81,12 @@ block content
                     img(class="card-img-top" src="/images/upload"+item.name style="height:15rem;")
                     div(class="card-body") 
                       h5(class="card-title" ) #{item.title}
-                      p(class="card-text") ราคาเล่มละ #{item.price} บาท
-        
-      #addModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
-        .modal-dialog(role='document')
-          .modal-content
-            .modal-header
-              h5#exampleModalLabel.modal-title เพิ่มข้อมูล
-              button.close(type='button' data-dismiss='modal' aria-label='Close')
-                span(aria-hidden='true') &times;
-            .modal-body
-              div(class="row justify-content-center formAdd")
-                div(class="text-align-center col-sm-10")
-                  h1 #{title}
-                  <form action='/books/add' method='post' encType="multipart/form-data">
-                    div(class="form-group form-check")
-                      input(type="checkbox" name="onlineCheck" class="form-check-input" id="onlineCheck")
-                      label(class="form-check-label" for="onlinkCheck") หนังสือออนไลน์
-                    div(class="form-group" id="formFileBook"  style="display:none")
-                      label(for="fileBook") หนังสือ
-                      input(type="file" name="fileBook" id="fileBook" accept="application/pdf")
-                    div(class="form-group")
-                      label(for='isbn') ISBN :
-                      input(class="form-control" type='text',name='isbn',size='30',placeholder='รหัส ISBN' required)
-                    div(class="form-group")
-                      label(for='title') ชื่อหนังสือ :
-                      input(class="form-control" type='text',name='title',size='50',placeholder='ชื่อหนังสือ' required)
-                    div(class="form-group") 
-                      div(class="row")
-                        div(class="col-md")
-                          label(for='price') ราคา :
-                          input(class="form-control" type="number",name='price',size='30',placeholder='ราคา' required)
-                        div(class="col-md")
-                          label(for='amount') จำนวน :
-                          input(class="form-control" type="number" name='amount' id="amount" size="30" placeholder='จำนวน' value='1' required)
-                    div(class="form-group")
-                      label(for='description') รายละเอียดหนังสือ
-                      textarea(name="description", cols="30", rows="5" class='form-control')
-                    div(class="form-group text-center")
-                      label(for="photo" class="custom-file-upload" name="photo1" style="background-color:#F0FFFF; border-radius: 20px;")
-                        i(class="fa fa-book")
-                        span(class="text-upload") รูปภาพ
-                        input(type='file' name="photo" id="photo" required accept="image/*" style="width:30rem; display:none;" onchange="readURL(this);")
-                        img(id="blah" src="" alt="your image" style="width:20rem; display:none")
-            div(class="modal-footer text-center")
-                  div(class="col-md-4")
-                    butoon(class='btn btn-outline-dark float-left btn-block' id="backBook" data-dismiss='modal') ย้อนกลับ
-                  div(class="col-md-4")
-                  div(class="col-md-4")  
-                    button(class='btn btn-outline-success float-right btn-block' type="submit") บันทึก
-                  </form>             
-
+                      p(class="card-text") ราคาเล่มละ #{item.price} บาท             
   else
-    button(class="btn btn-outline-primary my-2 float-right" style="display:none" id="addBook" ) เพิ่มข้อมูล
     div(id="accordion")
     div(class="card ")
       div(class="card-header border-dark" style="background-color:#696969;" id="headingOne") 
-        h5(class='text-light')  <i class="fa fa-file-text-o" style="font-size:25px"></i>หนังสือทั้งหมด
+        h5(class='text-light')  <i class="fa fa-book" style="font-size:25px"></i>หนังสือทั้งหมด 
           button(class="btn btn-link float-right" style="color:#ffffff" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne") 
             i(class="fa fa-minus")
       div(id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion" style="transition: all 1500ms ease 0s;")
@@ -151,53 +100,5 @@ block content
                     div(class="card-body") 
                       h5(class="card-title" ) #{item.title}
                       p(class="card-text") ราคาเล่มละ #{item.price} บาท
-      #addModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
-        .modal-dialog(role='document')
-          .modal-content
-            .modal-header
-              h5#exampleModalLabel.modal-title เพิ่มข้อมูล
-              button.close(type='button' data-dismiss='modal' aria-label='Close')
-                span(aria-hidden='true') &times;
-            .modal-body
-              div(class="row justify-content-center formAdd")
-                div(class="text-align-center col-sm-10")
-                  h1 #{title}
-                  <form action='/books/add' method='post'  encType="multipart/form-data">
-                    div(class="form-group form-check")
-                      input(type="checkbox" class="form-check-input" id="onlineCheck" name="onlineCheck")
-                      label(class="form-check-label" for="onlinkCheck") หนังสือออนไลน์
-                    div(class="form-group" id="formFileBook"  style="display:none")
-                      label(for="fileBook") หนังสือ
-                      input(type="file" name="fileBook"  id="fileBook" accept="application/pdf")
-                    div(class="form-group")
-                      label(for='isbn') ISBN :
-                      input(class="form-control" type='text',name='isbn',size='30',placeholder='รหัส ISBN' required)
-                    div(class="form-group")
-                      label(for='title') ชื่อหนังสือ :
-                      input(class="form-control" type='text',name='title',size='50',placeholder='ชื่อหนังสือ' required)
-                    div(class="form-group") 
-                      div(class="row")
-                        div(class="col-md")
-                          label(for='price') ราคา :
-                          input(class="form-control" type="number",name='price',size='30',placeholder='ราคา' required)
-                        div(class="col-md")
-                          label(for='amount') จำนวน :
-                          input(class="form-control" type="number" name='amount' id="amount" size="30" placeholder='จำนวน' value='1' required)
-                    div(class="form-group")
-                      label(for='description') รายละเอียดหนังสือ
-                      textarea(name="description", cols="30", rows="5" class='form-control')
-                    div(class="form-group text-center")
-                      label(for="photo" class="custom-file-upload" name="photo1" style="background-color:#F0FFFF; border-radius: 20px;")
-                        i(class="fa fa-book")
-                        span(class="text-upload") รูปภาพ
-                        input(type='file' name="photo" id="photo" required accept="image/*" style="width:30rem; display:none;" onchange="readURL(this);")
-                        img(id="blah" src="" alt="your image" style="width:20rem; display:none")
-                          
-            div(class="modal-footer text-center")
-                  div(class="col-md-4")
-                    butoon(class='btn btn-outline-dark float-left btn-block' id="backBook" data-dismiss='modal') ย้อนกลับ
-                  div(class="col-md-4")
-                  div(class="col-md-4")  
-                    button(class='btn btn-outline-success float-right btn-block' type="submit") บันทึก
-                  </form>      
+          
       

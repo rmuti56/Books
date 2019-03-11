@@ -1,4 +1,5 @@
 var mongoose = require('mongoose')
+
 var selectsSchema = mongoose.Schema({
   email: {
     type: String,
@@ -25,6 +26,10 @@ var selectsSchema = mongoose.Schema({
   },
   payment: {
     type: Boolean
+  },
+  dateThai: {
+    type: String,
+    required: true
   },
   selectDate: {
     type: Date,

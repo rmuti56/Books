@@ -19,7 +19,9 @@ div#navmain
               a(class="dropdown-item" id="menuStatus" href="/books/comfirm")  สถานะของสินค้า
               a(class="dropdown-item" id="menuHistory" href="/books/comfirm")  ประวัติการซื้อหนังสือ
               a(class="dropdown-item"  id="menuMybooks" href="/books/comfirm")  หนังสือของฉัน
-              a(class="dropdown-item"  href="/books/comfirm" style="display:none" id="comfirmPayment")  ยืนยันการชำระเงิน
+              a(class="dropdown-item" id="addBook"  style="display:none") เพิ่มหนังสือ(admin)
+              a(class="dropdown-item"  href="/books/comfirm" style="display:none" id="comfirmPayment")  ยืนยันการชำระเงิน(admin)
+              a(class="dropdown-item"  href="/books/historysell" style="display:none" id="historySell")  ประวัติการขายหนังสือ(admin)
         //-a(class="nav-link" id="menuUser" href="/users")  สมาชิก      
       button(class='btn btn-outline-light my-2 my-sm-0 ' id="login") ลงชื่อเข้าใช้
   #loginModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
@@ -75,6 +77,55 @@ div#navmain
                     div(class="form-group ")
                       button(class='btn btn-outline-primary float-right btn-block' onclick='register()') <i class="fa fa-sign-in"></i>ลงทะเบียน 
                     div(class="form-group text-center" style="padding-top:40px")
-                      label(for='' id="loginLabel" class="labelLogin" style="padding-top:20px") เข้าสู่ระบบ                      
+                      label(for='' id="loginLabel" class="labelLogin" style="padding-top:20px") เข้าสู่ระบบ    
+  #addModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='exampleModalLabel' aria-hidden='true')
+        .modal-dialog(role='document')
+          .modal-content
+            .modal-header
+              h5#exampleModalLabel.modal-title เพิ่มข้อมูล
+              button.close(type='button' data-dismiss='modal' aria-label='Close')
+                span(aria-hidden='true') &times;
+            .modal-body
+              div(class="row justify-content-center formAdd")
+                div(class="text-align-center col-sm-10")
+                  h1 #{title}
+                  <form action='/books/add' method='post'  encType="multipart/form-data">
+                    div(class="form-group form-check")
+                      input(type="checkbox" class="form-check-input" id="onlineCheck" name="onlineCheck")
+                      label(class="form-check-label" for="onlinkCheck") หนังสือออนไลน์
+                    div(class="form-group" id="formFileBook"  style="display:none")
+                      label(for="fileBook") หนังสือ
+                      input(type="file" name="fileBook"  id="fileBook" accept="application/pdf")
+                    div(class="form-group")
+                      label(for='isbn') ISBN :
+                      input(class="form-control" type='text',name='isbn',size='30',placeholder='รหัส ISBN' required)
+                    div(class="form-group")
+                      label(for='title') ชื่อหนังสือ :
+                      input(class="form-control" type='text',name='title',size='50',placeholder='ชื่อหนังสือ' required)
+                    div(class="form-group") 
+                      div(class="row")
+                        div(class="col-md")
+                          label(for='price') ราคา :
+                          input(class="form-control" type="number",name='price',size='30',placeholder='ราคา' required)
+                        div(class="col-md")
+                          label(for='amount') จำนวน :
+                          input(class="form-control" type="number" name='amount' id="amount" size="30" placeholder='จำนวน' value='1' required)
+                    div(class="form-group")
+                      label(for='description') รายละเอียดหนังสือ
+                      textarea(name="description", cols="30", rows="5" class='form-control')
+                    div(class="form-group text-center")
+                      label(for="photo" class="custom-file-upload" name="photo1" style="background-color:#F0FFFF; border-radius: 20px;")
+                        i(class="fa fa-book")
+                        span(class="text-upload") รูปภาพ (ต้องระบุ)
+                        input(type='file' name="photo" id="photo" required accept="image/*" style="width:30rem; display:none;" onchange="readURL(this);")
+                        img(id="blah" src="" alt="your image" style="width:20rem; display:none")
+                          
+            div(class="modal-footer text-center")
+                  div(class="col-md-4")
+                    butoon(class='btn btn-outline-dark float-left btn-block' id="backBook" data-dismiss='modal') ย้อนกลับ
+                  div(class="col-md-4")
+                  div(class="col-md-4")  
+                    button(class='btn btn-outline-success float-right btn-block' type="submit") บันทึก
+                  </form>                    
                      
                    

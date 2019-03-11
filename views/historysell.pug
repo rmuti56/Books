@@ -1,0 +1,59 @@
+extends layout
+
+block content
+  div(class="row justify-content-md-center")
+    div(class="col-md-12")
+      div(class="card text-center")
+        div(class="card-header" style="background-color:#6c757d;") 
+          h5(class='text-light')  <i class="fa fa-cart-arrow-down" style="font-size:25px"></i>ประวัติการขายสินค้า
+        div(class="card-body")
+          div(class="col-md-12")
+            table(id="showHiSell" class="display" style="width:100%")
+              <thead>
+                <tr>
+                  th ผู้ซื้อสินค้า
+                  th เวลา
+                  th รหัสสินค้า
+                  th ชื่อสินค้า
+                  th ราคา
+                  th จำนวน 
+                  th รวมเป็นเงิน(บาท)
+                  th สถานะ
+                    
+                </tr>
+              </thead>
+              <tbody>
+                if data
+                  for item in data
+                    tr
+                      td(id="hiSellEmail") #{item.email}
+                      td(id="hisellDate") #{item.dateThai}
+                      td(id="hiSellIsbn"+item._id ) #{item.isbn}
+                      td(id="hiSellTitle"+item._id ) #{item.title}
+                      td(id="hiSellPrice"+item._id ) #{item.price}
+                      td(id="hiSellAmount"+item._id ) #{item.selectAmount}
+                      td(class="sumStatus" ) #{item.price * item.selectAmount}
+                      td(class="text-success") ชำระเงินเรียบร้อย
+              
+              </tbody>
+              tbody
+                tr 
+                  td(colspan='6') รวมเป็นเงินทั้งสิ้น(บาท)
+                  td(colspan='2') #{sum}
+        
+              <tfoot>
+                <tr>
+                  th ผู้ซื้อสินค้า
+                  th เวลา
+                  th รหัสสินค้า
+                  th ชื่อสินค้า
+                  th ราคา
+                  th จำนวน 
+                  th รวมเป็นเงิน(บาท)
+                  th สถานะ
+                </tr>
+              </tfoot>
+            
+             
+               
+              

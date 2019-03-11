@@ -8,10 +8,18 @@ body {
   height: 100px;
 }
 
+th {
+  font-size: 15px;
+}
+
+td {
+  font-size: 14px;
+}
 
 th,
 td {
   border: 1px solid gray;
+
 }
 
 table {

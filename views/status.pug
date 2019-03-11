@@ -11,6 +11,7 @@ block content
             table(id="showCart" align='center' )
               thead
                 tr
+                  th เวลา
                   th รหัสสินค้า
                   th ชื่อสินค้า
                   th ราคา
@@ -20,14 +21,15 @@ block content
               <tbody>
               for item in data
                 tr(id='selectId'+item._id )
+                  td() #{item.dateThai}
                   td(id="selectIsbn"+item._id ) #{item.isbn}
                   td(id="selectTitle"+item._id ) #{item.title}
                   td(id="selectPrice"+item._id ) #{item.price}
                   td(id="selectAmount"+item._id ) #{item.selectAmount}
                   td(class="sumStatus" ) #{item.price * item.selectAmount}
-                  td(class="text-warning") อยู่ระหว่างรอชำระเงิน
+                  td(colspan="" class="text-warning") อยู่ระหว่างรอชำระเงิน
               tr(id="rowTotalStatus")
-                td(colspan="4") รวมเป็นเงินทั้งสิน
+                td(colspan="5") รวมเป็นเงินทั้งสิ้น(บาท)
                 td(colspan="2" id="totalStatus" value=""+sum) #{sum}
               tr(id="rowTextStatus")
                 td(colspan="6" id="noProduct") ไม่มีสินค้าชำระในขณะนี้

@@ -1,15 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var moment = require('moment')
 var books = mongoose.model('books');
 var select = mongoose.model('selects')
 var users = mongoose.model('users')
+moment.locale('th');
+var newDateThai = moment().format('llll')
 
 router.get('/', (req, res) => {
+  let newDate = moment().format('llll')
   books.find((err, dbBooks) => {
     res.render('books', {
       title: 'รายการหนังสือ',
-      data: dbBooks
+      data: dbBooks,
+      date: newDate
     })
   })
 })
@@ -26,6 +31,7 @@ router.get('/select', (req, res) => {
 router.post('/select', (req, res) => {
   books.find((err, dbBooks) => {
     var email = req.body.tokenEmail
+    console.log(email)
     dbBooks.forEach(item => {
       let item1 = `selectAmount${item._id}`
       let amount = req.body[item1]
@@ -46,7 +52,9 @@ router.post('/select', (req, res) => {
           path: item.path,
           name: item.name,
           payment: false,
-          sum: req.body[sum]
+          sum: req.body[sum],
+          dateThai: newDateThai
+
         }).save((err) => {
           if (err) {
             res.json(err);
@@ -74,13 +82,17 @@ router.post('/select', (req, res) => {
 
 router.get('/status', (req, res) => {
   var email = req.query.email
-  select.find({
+  var q = select.find({
     $and: [{
       email: email
     }, {
       payment: false
     }]
-  }, (err, dbBooks) => {
+  }).sort({
+    selectDate: 1
+  });
+
+  q.exec((err, dbBooks) => {
     var sum = 0;
     dbBooks.forEach(item => {
       sum += (item.price * item.selectAmount)
@@ -182,7 +194,8 @@ router.post('/mybooks', (req, res) => {
             title: title,
             name: name,
             nameOnline: nameOnline,
-            description: description
+            description: description,
+            dateThai: newDateThai
           }).save(err => {
             err ? res.json(err) : res.redirect('/books/mybooks?email=' + emailFriend)
           })
@@ -194,15 +207,34 @@ router.post('/mybooks', (req, res) => {
       res.redirect('/books/mybooks?email=' + emailFriend + '&noemail=noemail&id=' + id)
     }
   })
+})
 
+router.get('/historysell', (req, res) => {
+  select.find({
+    payment: true
+  }, (err, dbBooks) => {
+    var sum = 0;
+    dbBooks.forEach(item => {
+      sum += (item.selectAmount * item.price)
+    })
+    err ? res.json(err) : res.render('historysell', {
+      data: dbBooks,
+      sum: sum
+    })
+  })
 })
 
 router.get('/comfirm', (req, res) => {
   select.find({
     payment: false
   }, (err, dbBooks) => {
+    var sum = 0;
+    dbBooks.forEach(item => {
+      sum += (item.selectAmount * item.price)
+    });
     err ? res.json(err) : res.render('payment', {
-      data: dbBooks
+      data: dbBooks,
+      sum: sum
     })
   })
 })
@@ -267,6 +299,7 @@ router.post('/add', (req, res) => {
             nameOnline: bookName,
             amount: 10000,
             sellAmount: 0
+
           }).save(err => {
             err ? res.json(err) : res.redirect('/books');
           })
@@ -286,7 +319,9 @@ router.post('/add', (req, res) => {
         path: path,
         name: fileName,
         online: false,
-        amount: req.body.amount
+        amount: req.body.amount,
+        sellAmount: 0
+
       }).save((err) => {
         err ? res.json(err) : res.redirect('/books');
       })

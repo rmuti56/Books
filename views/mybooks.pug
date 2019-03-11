@@ -4,14 +4,14 @@ block content
   div(id="accordion")
     div(class="card ")
       div(class="card-header border-dark" style="background-color:#6c757d;" id="headingOne") 
-        h5(class='text-light')  <i class="fa fa-file-text-o" style="font-size:25px"></i>หนังสือของฉัน
+        h5(class='text-light')  <i class="fa fa-book" style="font-size:25px"></i>หนังสือของฉัน
           button(class="btn btn-link float-right" style="color:#ffffff" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne") 
             i(class="fa fa-minus")
       div(id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion" style="transition: all 1500ms ease 0s;")
         div(class="card-body")
           div(class="row justify-content-center mx-auto")
             for item in data
-              div(class="col-lg-3 col-md-4 col-sm-6 mx-auto" style="padding-top:20px;")
+              div(class="col-lg-6 col-md-12  mx-auto" style="padding-top:20px;")
                 div(class="card cardMyBook")
                   img(class="card-img-top" src="/images/upload"+item.name)
                   div(class="card-body") 
@@ -34,17 +34,18 @@ block content
   div(id="accordion")
     div(class="card ")
       div(class="card-header border-dark" style="background-color:#6c757d;" id="headingtwo") 
-        h5(class='text-light')  <i class="fa fa-file-text-o" style="font-size:25px"></i>หนังสือจากเพื่อน
+        h5(class='text-light')  <i class="fa fa-book" style="font-size:25px"></i>หนังสือจากเพื่อน
           button(class="btn btn-link float-right" style="color:#ffffff" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne") 
             i(class="fa fa-minus")
       div(id="collapseTwo" class="collapse show" aria-labelledby="headingtwo" data-parent="#accordion" style="transition: all 1500ms ease 0s;")
         div(class="card-body")
           div(class="row justify-content-center mx-auto")
             for item in newData
-              div(class="col-lg-3 col-md-4 col-sm-6 mx-auto" style="padding-top:20px;")
+              div(class="col-lg-6 col-md-12  mx-auto" style="padding-top:20px;")
                 div(class="card cardMyBook")
                   img(class="card-img-top" src="/images/upload"+item.name)
                   div(class="card-body") 
                     h5(class="card-title") #{item.title}
+                    p(class="card-text") (#{item.emailFriend} เป็นผู้ส่งให้)
                     p(class="card-text") #{item.description}
                     object(type="application/pdf" data="/images/book"+item.nameOnline width="100%"  style="height: 50vh;padding-top:20px") No Support 

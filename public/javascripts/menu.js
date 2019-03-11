@@ -14,8 +14,13 @@ $(document).ready(function () {
       $('#amount').attr('required', true)
     }
   })
-  $('#bookTable').DataTable({
-    pageLength: 25
+  $('#showHiSell').DataTable({
+    pageLength: 25,
+    dom: 'Bfrtip',
+    buttons: [{
+      extend: 'print',
+      messageTop: 'ประวัติการขายสินค้า'
+    }]
   });
   var test = $('#test').val();
   $(".navbar  .nav-link").on("click", function () {
@@ -185,6 +190,7 @@ $(document).ready(function () {
           $('#addBook').css('display', 'block')
           $('#edit').css('display', 'block')
           $('#delete').css('display', 'block')
+          $('#historySell').css('display', 'block')
         }
         $('#login').text('ออกจากระบบ')
         $('#login').click(() => {
