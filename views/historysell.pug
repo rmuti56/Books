@@ -34,13 +34,16 @@ block content
                       td(id="hiSellAmount"+item._id ) #{item.selectAmount}
                       td(class="sumStatus" ) #{item.price * item.selectAmount}
                       td(class="text-success") ชำระเงินเรียบร้อย
-              
+                  tr 
+                    td() รวมเป็นเงินทั้งสิ้น(บาท)
+                    td(style="border:none") 
+                    td(style="border:none") 
+                    td(style="border:none") 
+                    td(style="border:none") 
+                    td(style="border:none") 
+                    td() #{sum}
+                    td(style="") 
               </tbody>
-              tbody
-                tr 
-                  td(colspan='6') รวมเป็นเงินทั้งสิ้น(บาท)
-                  td(colspan='2') #{sum}
-        
               <tfoot>
                 <tr>
                   th ผู้ซื้อสินค้า
